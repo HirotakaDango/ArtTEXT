@@ -33,14 +33,14 @@ if (isset($_POST['submit'])) {
         <label for="floatingInput" class="text-secondary fw-bold"><small>Enter title</small></label>
       </div>
       <div class="form-floating mb-2">
-        <input class="form-control text-secondary fw-bold" style="height: 200px;" type="text" name="synopsis" placeholder="Enter synopsis" maxlength="450" required>  
+        <textarea class="form-control text-secondary fw-bold" style="height: 200px;" type="text" name="synopsis" placeholder="Enter synopsis" maxlength="450" required></textarea>
         <label for="floatingInput" class="text-secondary fw-bold"><small>Enter synopsis</small></label>
       </div>
       <div class="form-floating mb-2">
         <textarea class="form-control text-secondary fw-bold" style="height: 400px;" name="content" onkeydown="if(event.keyCode == 13) { document.execCommand('insertHTML', false, '<br><br>'); return false; }" placeholder="Enter content" required></textarea>
         <label for="floatingInput" class="text-secondary fw-bold"><small>Enter content</small></label>
       </div>
-      <button class="btn btn-primary" type="submit" name="submit">Submit</button>
+      <button class="btn btn-primary fw-bold mb-5" type="submit" name="submit">Submit</button>
     </form>
   </body>
 </html>
