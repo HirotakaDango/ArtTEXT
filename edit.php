@@ -58,7 +58,7 @@ if (isset($_GET['id'])) {
         <label for="floatingInput" class="text-secondary fw-bold"><small>Enter synopsis</small></label>
       </div>
       <div class="form-floating mb-2">
-        <textarea class="form-control text-secondary fw-bold" style="height: 400px;" name="content" onkeydown="if(event.keyCode == 13) { document.execCommand('insertHTML', false, '<br><br>'); return false; }" placeholder="Enter content" required><?php echo strip_tags(str_replace('<br />', "\n", $post['content'])) ?></textarea>
+        <textarea class="form-control text-secondary fw-bold" style="height: 400px;" name="content" oninput="stripHtmlTags(this)" placeholder="Enter content" required><?php echo strip_tags($post['content']) ?></textarea>
         <label for="floatingInput" class="text-secondary fw-bold"><small>Enter content</small></label>
       </div>
       <button class="btn btn-primary fw-bold mb-5" type="submit" name="submit">Save Changes</button>
