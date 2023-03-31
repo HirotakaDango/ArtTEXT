@@ -22,17 +22,17 @@ $posts = $db->query($query)->fetchAll();
   </head>
   <body>
     <?php include('header.php'); ?>
-    <div class="container mt-3">
+    <div class="mt-3">
       <h3 class="text-center"><?php echo $user['username'] ?>'s works</h3>
-      <hr>
-      <div class="container text-center">
+        <div class="container text-center">
           <div class="contents">
             <?php foreach ($posts as $post): ?>
-              <div class="content card">
+              <div class="content card border border-2 h-100">
+                <a href="view.php?id=<?php echo $post['id'] ?>"><img class="img-fluid border-bottom" alt="cover" style="border-radius: 4px 4px 0 0;" src="<?php echo !empty($post['cover']) ? 'cover/'.$post['cover'] : 'cover/bg.png'; ?>"></a>
                 <a class="me-1 ms-1 mt-1 mb-1 text-secondary text-decoration-none fw-bold" href="view.php?id=<?php echo $post['id'] ?>"><?php echo $post['title'] ?></a>
                 <header class="d-flex justify-content-center py-3">
                   <ul class="nav nav-pills">
-                    <li class="nav-item"><a class="btn btn-sm btn-danger me-1" href="delete.php?id=<?php echo $post['id'] ?>"><i class="bi bi-trash-fill"></i></a></li>
+                    <li class="nav-item"><a class="btn btn-sm btn-danger me-1" href="delete.php?id=<?php echo $post['id'] ?>" onclick="return confirm('Are you sure?')"><i class="bi bi-trash-fill"></i></a></li>
                     <li class="nav-item"><a class="btn btn-sm btn-primary ms-1" href="edit.php?id=<?php echo $post['id'] ?>"><i class="bi bi-pencil-fill"></i></a></li>
                   </ul>
                 </header>

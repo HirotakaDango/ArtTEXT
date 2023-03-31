@@ -2,33 +2,36 @@
 session_start();
 $db = new PDO('sqlite:database.db');
 if (!isset($_SESSION['user_id'])) {
-    header('Location: session.php');
+  header('Location: session.php');
 }
 $user_id = $_SESSION['user_id'];
 
 if (isset($_POST['submit'])) {
-    $post_id = $_POST['post_id'];
-    $title = htmlspecialchars($_POST['title']);
-    $synopsis = htmlspecialchars($_POST['synopsis']);
-    $content = htmlspecialchars($_POST['content']);
-    // Replace line breaks with HTML line breaks
-    $content = nl2br($content);
-    $query = "UPDATE posts SET title='$title', synopsis='$synopsis', content='$content' WHERE id='$post_id'";
-    $db->exec($query);
-    header("Location: profile.php");
+  $post_id = $_POST['post_id'];
+  $title = htmlspecialchars($_POST['title']);
+  $tags = isset($_POST['tags']) ? $_POST['tags'] : '';
+  $tags = implode(',', array_filter(array_map('trim', explode(',', $tags))));
+  $synopsis = htmlspecialchars($_POST['synopsis']);
+  $content = htmlspecialchars($_POST['content']);
+  $content = nl2br($content);
+  $query = "UPDATE posts SET title='$title', tags='$tags', synopsis='$synopsis', content='$content' WHERE id='$post_id'";
+  $db->exec($query);
+  header("Location: profile.php");
 }
 
 if (isset($_GET['id'])) {
-    $post_id = $_GET['id'];
-    $query = "SELECT * FROM posts WHERE id='$post_id' AND user_id='$user_id'";
-    $post = $db->query($query)->fetch();
-    if (!$post) {
-        header("Location: profile.php");
-    }
-} else {
+  $post_id = $_GET['id'];
+  $query = "SELECT * FROM posts WHERE id='$post_id' AND user_id='$user_id'";
+  $post = $db->query($query)->fetch();
+  if (!$post) {
     header("Location: profile.php");
+  }
+  $tags = explode(',', $post['tags']); // split tags into an array
+} else {
+  header("Location: profile.php");
 }
 ?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -45,6 +48,10 @@ if (isset($_GET['id'])) {
       <div class="form-floating mb-2">
         <input class="form-control text-secondary fw-bold" type="text" name="title" placeholder="Enter title" maxlength="50" required value="<?php echo $post['title'] ?>">  
         <label for="floatingInput" class="text-secondary fw-bold"><small>Enter title</small></label>
+      </div>
+      <div class="form-floating mb-2">
+        <input class="form-control text-secondary fw-bold" type="text" name="tags" placeholder="Enter tag" maxlength="50" required value="<?php echo $post['tags'] ?>">  
+        <label for="floatingInput" class="text-secondary fw-bold"><small>Enter tag</small></label>
       </div>
       <div class="form-floating mb-2">
         <textarea class="form-control text-secondary fw-bold" style="height: 200px;" type="text" name="synopsis" placeholder="Enter synopsis" maxlength="450" required><?php echo $post['synopsis'] ?></textarea>

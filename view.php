@@ -7,6 +7,9 @@
   $id = $_GET['id'];
   $query = "SELECT * FROM posts WHERE id='$id'";
   $post = $db->query($query)->fetch();
+
+  // Extract genres from tags column
+  $genres = explode(",", $post['tags']);
 ?>
 
 <!DOCTYPE html>
@@ -21,8 +24,13 @@
   <body>
     <?php include('header.php'); ?>
     <div class="container fw-bold mt-3">
+      <center><img class="img-fluid border border-3 rounded-3 mb-2" alt="cover" src="<?php echo !empty($post['cover']) ? 'cover/'.$post['cover'] : 'cover/bg.png'; ?>"></center>
       <h1 class="text-center"><?php echo $post['title'] ?></h1>
-      <p class="mt-2 text-secondary">Synopsis</p> 
+      <p class="mt-2 text-secondary">Genres</p>
+      <?php if (count($genres) > 0): ?>
+        <small class="container text-dark rounded-pill bg-secondary opacity-75 py-1 fw-bold"><?php echo implode(", ", $genres); ?></small>
+      <?php endif; ?>
+      <p class="mt-3 text-secondary">Synopsis</p> 
       <small class="container text-secondary"><?php echo $post['synopsis'] ?></small> 
       <hr>
       <small class="container mt-3"><?php echo $post['content'] ?></small></br>
