@@ -8,7 +8,7 @@
   $db = new PDO('sqlite:database.db');
   $db->exec("CREATE TABLE IF NOT EXISTS users ( id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, password TEXT NOT NULL)");
   $db->exec("CREATE TABLE IF NOT EXISTS posts ( id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, synopsis TEXT NOT NULL, content TEXT NOT NULL, user_id INTEGER NOT NULL, FOREIGN KEY (user_id) REFERENCES users(id))");
-  $query = "SELECT * FROM posts";
+  $query = "SELECT * FROM posts ORDER BY id DESC";
   $posts = $db->query($query)->fetchAll();
 ?>
 

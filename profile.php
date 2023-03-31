@@ -7,7 +7,7 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $query = "SELECT * FROM users WHERE id='$user_id'";
 $user = $db->query($query)->fetch();
-$query = "SELECT * FROM posts WHERE user_id='$user_id'";
+$query = "SELECT * FROM posts WHERE user_id='$user_id' ORDER BY id DESC";
 $posts = $db->query($query)->fetchAll();
 ?>
 
