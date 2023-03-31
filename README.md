@@ -1,1 +1,3 @@
 # ArtTEXT
+
+**Text based website**
