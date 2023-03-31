@@ -2,23 +2,23 @@
 session_start();
 $db = new PDO('sqlite:database.db');
 if (isset($_POST['login'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-    $user = $db->query($query)->fetch();
-    if ($user) {
-        $_SESSION['user_id'] = $user['id'];
-        header('Location: index.php');
-    } else {
-        echo 'Invalid username or password';
-    }
-} elseif (isset($_POST['register'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $query = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
-    $db->exec($query);
-    $_SESSION['user_id'] = $db->lastInsertId();
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+  $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+  $user = $db->query($query)->fetch();
+  if ($user) {
+    $_SESSION['user_id'] = $user['id'];
     header('Location: index.php');
+  } else {
+    echo 'Invalid username or password';
+  }
+} elseif (isset($_POST['register'])) {
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+  $query = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
+  $db->exec($query);
+  $_SESSION['user_id'] = $db->lastInsertId();
+  header('Location: index.php');
 }
 ?>
 

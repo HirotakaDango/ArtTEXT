@@ -1,15 +1,15 @@
 <?php
-  session_start();
-  $db = new PDO('sqlite:database.db');
-  if (!isset($_SESSION['user_id'])) {
-    header('Location: session.php');
-  }
+session_start();
+$db = new PDO('sqlite:database.db');
+if (!isset($_SESSION['user_id'])) {
+  header('Location: session.php');
+}
 
-  $db = new PDO('sqlite:database.db');
-  $db->exec("CREATE TABLE IF NOT EXISTS users ( id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, password TEXT NOT NULL)");
-  $db->exec("CREATE TABLE IF NOT EXISTS posts ( id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, synopsis TEXT NOT NULL, content TEXT NOT NULL, user_id INTEGER NOT NULL, cover BLOB NOT NULL, tags TEXT NOT NULL, FOREIGN KEY (user_id) REFERENCES users(id))");
-  $query = "SELECT * FROM posts ORDER BY id DESC";
-  $posts = $db->query($query)->fetchAll();
+$db = new PDO('sqlite:database.db');
+$db->exec("CREATE TABLE IF NOT EXISTS users ( id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, password TEXT NOT NULL)");
+$db->exec("CREATE TABLE IF NOT EXISTS posts ( id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, synopsis TEXT NOT NULL, content TEXT NOT NULL, user_id INTEGER NOT NULL, cover BLOB NOT NULL, tags TEXT NOT NULL, FOREIGN KEY (user_id) REFERENCES users(id))");
+$query = "SELECT * FROM posts ORDER BY id DESC";
+$posts = $db->query($query)->fetchAll();
 ?>
 
 <!DOCTYPE html>

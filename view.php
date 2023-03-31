@@ -1,15 +1,15 @@
 <?php
-  session_start();
-  $db = new PDO('sqlite:database.db');
-  if (!isset($_SESSION['user_id'])) {
-    header('Location: session.php');
-  }
-  $id = $_GET['id'];
-  $query = "SELECT * FROM posts WHERE id='$id'";
-  $post = $db->query($query)->fetch();
+session_start();
+$db = new PDO('sqlite:database.db');
+if (!isset($_SESSION['user_id'])) {
+  header('Location: session.php');
+}
+$id = $_GET['id'];
+$query = "SELECT * FROM posts WHERE id='$id'";
+$post = $db->query($query)->fetch();
 
-  // Extract genres from tags column
-  $genres = explode(",", $post['tags']);
+// Extract genres from tags column
+$genres = explode(",", $post['tags']);
 ?>
 
 <!DOCTYPE html>
