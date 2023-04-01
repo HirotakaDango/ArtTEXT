@@ -38,6 +38,7 @@ $total_pages = ceil($total_posts / $posts_per_page);
           <?php foreach ($posts as $post): ?>
             <a class="content text-decoration-none" href="view.php?id=<?php echo $post['id'] ?>">
               <div class="card border border-2 h-100">
+                <i class="bi bi-book-half display-1 mt-1 text-secondary border-bottom"></i>
                 <p class="me-1 ms-1 mt-1 mb-1 text-secondary text-decoration-none fw-bold"><?php echo $post['title'] ?></p>
               </div>
             </a>

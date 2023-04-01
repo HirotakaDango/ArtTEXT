@@ -37,6 +37,7 @@ $total_pages = ceil($total_posts / $per_page);
           <div class="contents">
             <?php foreach ($posts as $post): ?>
               <div class="content card border border-2 h-100">
+                <a class="border-bottom display-1 mt-1" href="view.php?id=<?php echo $post['id'] ?>"><i class="bi bi-book-half text-secondary"></i></a>
                 <a class="me-1 ms-1 mt-1 mb-1 text-secondary text-decoration-none fw-bold" href="view.php?id=<?php echo $post['id'] ?>"><?php echo $post['title'] ?></a>
                 <header class="d-flex justify-content-center py-3">
                   <ul class="nav nav-pills">
