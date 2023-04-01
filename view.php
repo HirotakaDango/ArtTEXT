@@ -32,12 +32,19 @@ $genres = explode(",", $post['tags']);
         <p class="mt-2 text-secondary">Genre: <?php echo implode(", ", $genres); ?></p>
       <?php endif; ?>
       <p class="mt-3 text-secondary">Synopsis</p> 
-      <small class="container text-secondary"><?php echo $post['synopsis'] ?></small> 
+      <small class="container text-secondary font-l"><?php echo $post['synopsis'] ?></small> 
       <hr>
-      <small class="mt-3"><?php echo $post['content'] ?></small></br>
+      <small class="mt-3 font-l"><?php echo $post['content'] ?></small></br>
       <div class="mb-5"></div>
       <a class="text-decoration-none" href="index.php">Back to home</a>
       <div class="mt-5"></div>
     </div>
+  <style>
+    @media (min-width: 768px) {
+      .font-l {
+        font-size: 17px;
+      }
+    }  
+  </style>
   </body>
 </html>
