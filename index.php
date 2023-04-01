@@ -29,7 +29,7 @@ $posts = $db->query($query)->fetchAll();
             <?php foreach ($posts as $post): ?>
               <a class="content text-decoration-none" href="view.php?id=<?php echo $post['id'] ?>">
                 <div class="card border border-2 h-100">
-                  <img class="img-fluid border-bottom lazy-load" alt="cover" style="border-radius: 4px 4px 0 0;" data-src="<?php echo !empty($post['cover']) ? 'cover/'.$post['cover'] : 'cover/bg.png'; ?>">
+                  <img class="img-fluid border-bottom lazy-load" alt="cover" style="border-radius: 4px 4px 0 0; height: 200px; object-fit: cover;" data-src="<?php echo !empty($post['cover']) ? 'cover/'.$post['cover'] : 'cover/bg.png'; ?>">
                   <p class="me-1 ms-1 mt-1 mb-1 text-secondary text-decoration-none fw-bold"><?php echo $post['title'] ?></p>
                 </div>
               </a>
