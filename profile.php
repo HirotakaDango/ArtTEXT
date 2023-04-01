@@ -8,7 +8,7 @@ $user_id = $_SESSION['user_id'];
 $query = "SELECT * FROM users WHERE id='$user_id'";
 $user = $db->query($query)->fetch();
 
-$per_page = 20;
+$per_page = 100;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $start_from = ($page - 1) * $per_page;
 
