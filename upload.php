@@ -32,7 +32,7 @@ if (isset($_POST['submit'])) {
         <label for="floatingInput" class="text-secondary fw-bold"><small>Enter title</small></label>
       </div>
       <div class="form-floating mb-2">
-        <input class="form-control border rounded-3 text-secondary fw-bold border-4" type="text" name="tags" placeholder="Enter tag" maxlength="50" required>  
+        <input class="form-control text-secondary fw-bold" type="text" name="tags" placeholder="Enter tag" maxlength="50" required>  
         <label for="floatingInput" class="text-secondary fw-bold"><small>Enter tag</small></label>
       </div>
       <div class="form-floating mb-2">
