@@ -24,7 +24,7 @@ $posts = $db->query($query)->fetchAll();
     <?php include('header.php'); ?>
     <div class="mt-3">
       <h3 class="text-center"><?php echo $user['username'] ?>'s works</h3>
-        <div class="container text-center">
+        <div class="container-fluid text-center">
           <div class="contents">
             <?php foreach ($posts as $post): ?>
               <div class="content card border border-2 h-100">
