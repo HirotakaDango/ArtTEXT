@@ -28,7 +28,9 @@ $posts = $db->query($query)->fetchAll();
           <div class="contents">
             <?php foreach ($posts as $post): ?>
               <div class="content card border border-2 h-100">
-                <a href="view.php?id=<?php echo $post['id'] ?>"><img class="img-fluid border-bottom lazy-load" alt="cover" style="border-radius: 4px 4px 0 0; height: 200px; object-fit: cover;" data-src="<?php echo !empty($post['cover']) ? 'cover/'.$post['cover'] : 'cover/bg.png'; ?>"></a>
+                <a href="view.php?id=<?php echo $post['id'] ?>" style="display: block; width: auto;">
+                  <img class="border-bottom lazy-load" alt="cover" style="border-radius: 4px 4px 0 0; height: 200px; object-fit: cover; width: 100%;" data-src="<?php echo !empty($post['cover']) ? 'cover/'.$post['cover'] : 'cover/bg.png'; ?>">
+                </a>
                 <a class="me-1 ms-1 mt-1 mb-1 text-secondary text-decoration-none fw-bold" href="view.php?id=<?php echo $post['id'] ?>"><?php echo $post['title'] ?></a>
                 <header class="d-flex justify-content-center py-3">
                   <ul class="nav nav-pills">
