@@ -4,13 +4,13 @@ $db = new PDO('sqlite:database.db');
 if (!isset($_SESSION['user_id'])) {
   header('Location: session.php');
 }
+
 $user_id = $_SESSION['user_id'];
 
 if (isset($_POST['submit'])) {
   $post_id = $_POST['post_id'];
   $title = htmlspecialchars($_POST['title']);
-  $tags = isset($_POST['tags']) ? $_POST['tags'] : '';
-  $tags = implode(',', array_filter(array_map('trim', explode(',', $tags))));
+  $tags = htmlspecialchars($_POST['tags']);
   $synopsis = htmlspecialchars($_POST['synopsis']);
   $content = htmlspecialchars($_POST['content']);
   $content = nl2br($content);
@@ -26,7 +26,7 @@ if (isset($_GET['id'])) {
   if (!$post) {
     header("Location: profile.php");
   }
-  $tags = explode(',', $post['tags']); // split tags into an array
+  $tags = htmlspecialchars($post['tags']); // encode tags
 } else {
   header("Location: profile.php");
 }

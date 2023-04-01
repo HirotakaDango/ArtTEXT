@@ -10,52 +10,9 @@ if (isset($_POST['submit'])) {
   $synopsis = htmlspecialchars($_POST['synopsis']);
   $tags = htmlspecialchars($_POST['tags']);
   $content = nl2br($content);
-  $errors = array();
-
-  if(isset($_FILES['image']) && $_FILES['image']['size'] > 0){
-    $file_name = $_FILES['image']['name'];
-    $file_size = $_FILES['image']['size'];
-    $file_tmp = $_FILES['image']['tmp_name'];
-    $file_type = $_FILES['image']['type'];
-    $extensions = array("jpeg","jpg","png");
-    $tmp = explode('.', $file_name);
-    $file_ext = strtolower(end($tmp));
-    if(in_array($file_ext,$extensions)=== false){
-      $errors[]="extension not allowed, please choose a JPEG or PNG file.";
-    }
-    if($file_size > 2097152){
-      $errors[]='File size must be less than 2 MB';
-    }
-  } else {
-    $file_name = null;
-  }
-
-  if(empty($errors)){
-    if($file_name !== null){
-      list($width, $height) = getimagesize($file_tmp);
-      $aspect_ratio = $width / $height;
-      $new_width = 200;
-      $new_height = round($new_width / $aspect_ratio);
-      $image_p = imagecreatetruecolor($new_width, $new_height);
-      if($file_ext == 'jpeg' || $file_ext == 'jpg'){
-        $image = imagecreatefromjpeg($file_tmp);
-      }
-      elseif($file_ext == 'png'){
-        $image = imagecreatefrompng($file_tmp);
-      }
-      imagecopyresampled($image_p, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-      $file_name = uniqid().'.'.$file_ext;
-      imagejpeg($image_p, "cover/".$file_name);
-      imagedestroy($image_p);
-    }
-
-    $stmt = $db->prepare("INSERT INTO posts (title, content, synopsis, cover, tags, user_id) VALUES (:title, :content, :synopsis, :cover, :tags, :user_id)");
-    $stmt->execute(array(':title' => $title, ':content' => $content, ':synopsis' => $synopsis, ':cover' => $file_name, ':tags' => $tags, ':user_id' => $_SESSION['user_id']));
-    header('Location: index.php');
-  }
-  else{
-    print_r($errors);
-  }
+  $stmt = $db->prepare("INSERT INTO posts (title, content, synopsis, tags, user_id) VALUES (:title, :content, :synopsis, :tags, :user_id)");
+  $stmt->execute(array(':title' => $title, ':content' => $content, ':synopsis' => $synopsis, ':tags' => $tags, ':user_id' => $_SESSION['user_id']));
+  header('Location: index.php');
 }
 ?>
 
@@ -70,8 +27,6 @@ if (isset($_POST['submit'])) {
   <body>
     <?php include('header.php'); ?>
     <form method="post" enctype="multipart/form-data" class="container mt-3">
-      <img id="file-ip-1-preview" style="height: 250px; width: 100%; margin-bottom: 15px; object-fit: cover;">
-      <input class="form-control mb-2 text-secondary fw-bold" type="file" name="image" type="file" id="file-ip-1" accept="image/*" onchange="showPreview(event);">
       <div class="form-floating mb-2">
         <input class="form-control text-secondary fw-bold" type="text" name="title" placeholder="Enter title" maxlength="100" required>  
         <label for="floatingInput" class="text-secondary fw-bold"><small>Enter title</small></label>
@@ -90,15 +45,5 @@ if (isset($_POST['submit'])) {
       </div>
       <button class="btn btn-primary fw-bold mb-5" type="submit" name="submit">Submit</button>
     </form>
-    <script>
-      function showPreview(event){
-        if(event.target.files.length > 0){
-          var src = URL.createObjectURL(event.target.files[0]);
-          var preview = document.getElementById("file-ip-1-preview");
-          preview.src = src;
-          preview.style.display = "block";
-        }
-      }
-    </script>
   </body>
 </html>

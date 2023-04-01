@@ -28,13 +28,10 @@ $posts = $db->query($query)->fetchAll();
           <div class="contents">
             <?php foreach ($posts as $post): ?>
               <div class="content card border border-2 h-100">
-                <a href="view.php?id=<?php echo $post['id'] ?>" style="display: block; width: auto;">
-                  <img class="border-bottom lazy-load" alt="cover" style="border-radius: 4px 4px 0 0; height: 200px; object-fit: cover; width: 100%;" data-src="<?php echo !empty($post['cover']) ? 'cover/'.$post['cover'] : 'cover/bg.png'; ?>">
-                </a>
                 <a class="me-1 ms-1 mt-1 mb-1 text-secondary text-decoration-none fw-bold" href="view.php?id=<?php echo $post['id'] ?>"><?php echo $post['title'] ?></a>
                 <header class="d-flex justify-content-center py-3">
                   <ul class="nav nav-pills">
-                    <li class="nav-item"><a class="btn btn-sm btn-danger me-1" href="delete.php?id=<?php echo $post['id'] ?>" onclick="return confirm('Are you sure?')"><i class="bi bi-trash-fill"></i></a></li>
+                    <li class="nav-item btn-sm"><a class="btn btn-sm btn-danger me-1" href="delete.php?id=<?php echo $post['id'] ?>" onclick="return confirm('Are you sure?')"><i class="bi bi-trash-fill"></i></a></li>
                     <li class="nav-item"><a class="btn btn-sm btn-primary ms-1" href="edit.php?id=<?php echo $post['id'] ?>"><i class="bi bi-pencil-fill"></i></a></li>
                   </ul>
                 </header>
