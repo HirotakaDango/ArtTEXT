@@ -8,8 +8,17 @@ if (!isset($_SESSION['user_id'])) {
 $db = new PDO('sqlite:database.db');
 $db->exec("CREATE TABLE IF NOT EXISTS users ( id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, password TEXT NOT NULL)");
 $db->exec("CREATE TABLE IF NOT EXISTS posts ( id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, synopsis TEXT NOT NULL, content TEXT NOT NULL, user_id INTEGER NOT NULL, tags TEXT NOT NULL, FOREIGN KEY (user_id) REFERENCES users(id))");
-$query = "SELECT * FROM posts ORDER BY id DESC";
+
+$posts_per_page = 20;
+$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+$start_index = ($page - 1) * $posts_per_page;
+
+$query = "SELECT * FROM posts ORDER BY id DESC LIMIT $start_index, $posts_per_page";
 $posts = $db->query($query)->fetchAll();
+
+$count_query = "SELECT COUNT(*) FROM posts";
+$total_posts = $db->query($count_query)->fetchColumn();
+$total_pages = ceil($total_posts / $posts_per_page);
 ?>
 
 <!DOCTYPE html>
@@ -34,6 +43,14 @@ $posts = $db->query($query)->fetchAll();
             </a>
           <?php endforeach ?> 
         </div>
+        <div class="pagination mt-4 justify-content-center">
+          <?php if ($page > 1): ?>
+            <a class="btn btn-sm fw-bold btn-primary" href="?page=<?php echo $page - 1 ?>">Prev</a>
+          <?php endif ?>
+          <?php if ($page < $total_pages): ?>
+            <a class="btn btn-sm fw-bold btn-primary" href="?page=<?php echo $page + 1 ?>">Next</a>
+          <?php endif ?>
+        </div>
       </div>
     </div>
     <style>
@@ -46,52 +63,5 @@ $posts = $db->query($query)->fetchAll();
         margin-left: 1px;
       }
     </style>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-          let lazyloadImages;
-          if("IntersectionObserver" in window) {
-            lazyloadImages = document.querySelectorAll(".lazy-load");
-            let imageObserver = new IntersectionObserver(function(entries, observer) {
-              entries.forEach(function(entry) {
-                if(entry.isIntersecting) {
-                  let image = entry.target;
-                  image.src = image.dataset.src;
-                  image.classList.remove("lazy-load");
-                  imageObserver.unobserve(image);
-                }
-              });
-            });
-            lazyloadImages.forEach(function(image) {
-              imageObserver.observe(image);
-            });
-          } else {
-            let lazyloadThrottleTimeout;
-            lazyloadImages = document.querySelectorAll(".lazy-load");
-
-            function lazyload() {
-              if(lazyloadThrottleTimeout) {
-                clearTimeout(lazyloadThrottleTimeout);
-              }
-              lazyloadThrottleTimeout = setTimeout(function() {
-                let scrollTop = window.pageYOffset;
-                lazyloadImages.forEach(function(img) {
-                  if(img.offsetTop < (window.innerHeight + scrollTop)) {
-                    img.src = img.dataset.src;
-                    img.classList.remove('lazy-load');
-                  }
-                });
-                if(lazyloadImages.length == 0) {
-                  document.removeEventListener("scroll", lazyload);
-                  window.removeEventListener("resize", lazyload);
-                  window.removeEventListener("orientationChange", lazyload);
-                }
-              }, 20);
-            }
-            document.addEventListener("scroll", lazyload);
-            window.addEventListener("resize", lazyload);
-            window.addEventListener("orientationChange", lazyload);
-          }
-        })
-    </script> 
   </body>
 </html>
