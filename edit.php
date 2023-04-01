@@ -46,7 +46,7 @@ if (isset($_GET['id'])) {
     <form method="post" class="container mt-3">
       <input type="hidden" name="post_id" value="<?php echo $post_id ?>">
       <div class="form-floating mb-2">
-        <input class="form-control text-secondary fw-bold" type="text" name="title" placeholder="Enter title" maxlength="50" required value="<?php echo $post['title'] ?>">  
+        <input class="form-control text-secondary fw-bold" type="text" name="title" placeholder="Enter title" maxlength="100" required value="<?php echo $post['title'] ?>">  
         <label for="floatingInput" class="text-secondary fw-bold"><small>Enter title</small></label>
       </div>
       <div class="form-floating mb-2">

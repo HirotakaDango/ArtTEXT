@@ -1,6 +1,8 @@
 <?php
 session_start();
 $db = new PDO('sqlite:database.db');
+$db->exec("CREATE TABLE IF NOT EXISTS users ( id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, password TEXT NOT NULL)");
+$db->exec("CREATE TABLE IF NOT EXISTS posts ( id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, synopsis TEXT NOT NULL, content TEXT NOT NULL, user_id INTEGER NOT NULL, cover BLOB NOT NULL, tags TEXT NOT NULL, FOREIGN KEY (user_id) REFERENCES users(id))");
 if (isset($_POST['login'])) {
   $username = $_POST['username'];
   $password = $_POST['password'];

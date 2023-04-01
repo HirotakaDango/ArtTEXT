@@ -25,7 +25,7 @@ $genres = explode(",", $post['tags']);
     <?php include('header.php'); ?>
     <div class="container fw-bold mt-3">
       <center><img class="img-fluid border border-3 rounded-3 mb-2" alt="cover" src="<?php echo !empty($post['cover']) ? 'cover/'.$post['cover'] : 'cover/bg.png'; ?>"></center>
-      <h1 class="text-center"><?php echo $post['title'] ?></h1>
+      <h1 class="text-center fw-semibold"><?php echo $post['title'] ?></h1>
       <?php if (count($genres) > 0): ?>
         <p class="mt-2 text-secondary">Genre:<small class="container text-secondary fw-bold"><?php echo implode(", ", $genres); ?></small></p>
       <?php endif; ?>

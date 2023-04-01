@@ -73,7 +73,7 @@ if (isset($_POST['submit'])) {
       <img id="file-ip-1-preview" style="height: 250px; width: 100%; margin-bottom: 15px; object-fit: cover;">
       <input class="form-control mb-2 text-secondary fw-bold" type="file" name="image" type="file" id="file-ip-1" accept="image/*" onchange="showPreview(event);">
       <div class="form-floating mb-2">
-        <input class="form-control text-secondary fw-bold" type="text" name="title" placeholder="Enter title" maxlength="50" required>  
+        <input class="form-control text-secondary fw-bold" type="text" name="title" placeholder="Enter title" maxlength="100" required>  
         <label for="floatingInput" class="text-secondary fw-bold"><small>Enter title</small></label>
       </div>
       <div class="form-floating mb-2">
