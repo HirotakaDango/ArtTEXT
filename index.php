@@ -22,7 +22,7 @@ $total_pages = ceil($total_posts / $posts_per_page);
 ?>
 
 <!DOCTYPE html>
-<html>
+<html data-bs-theme="dark">
   <head>
     <title>ArtTEXT</title>
     <meta charset="UTF-8"> 

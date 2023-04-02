@@ -52,7 +52,7 @@ if (isset($_POST['login'])) {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html data-bs-theme="dark">
   <head>
     <title>ArtTEXT</title>
     <meta charset="UTF-8"> 

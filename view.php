@@ -7,15 +7,22 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 $id = $_GET['id'];
-$query = "SELECT posts.id, posts.title, posts.synopsis, posts.content, posts.user_id, posts.cover, posts.tags, users.username FROM posts JOIN users ON posts.user_id = users.id WHERE posts.id = '$id' AND posts.user_id = '$user_id'";
+$query = "SELECT posts.id, posts.title, posts.synopsis, posts.content, posts.user_id, posts.cover, posts.tags, users.username FROM posts JOIN users ON posts.user_id = users.id WHERE posts.id = '$id'";
 $post = $db->query($query)->fetch();
 
-// Extract genres from tags column
-$genres = explode(",", $post['tags']);
+// Query for the next and previous posts by the same user
+$next_post_query = "SELECT id FROM posts WHERE user_id = '$post[user_id]' AND id > '$id' ORDER BY id ASC LIMIT 1";
+$next_post = $db->query($next_post_query)->fetch();
+$previous_post_query = "SELECT id FROM posts WHERE user_id = '$post[user_id]' AND id < '$id' ORDER BY id DESC LIMIT 1";
+$previous_post = $db->query($previous_post_query)->fetch();
+
+// Query to check if there are more than 1 post by the same user
+$user_posts_query = "SELECT id FROM posts WHERE user_id = '$post[user_id]'";
+$user_posts = $db->query($user_posts_query)->fetchAll();
 ?>
 
 <!DOCTYPE html>
-<html>
+<html data-bs-theme="dark">
   <head>
     <title><?php echo $post['title'] ?></title>
     <meta charset="UTF-8"> 
@@ -26,25 +33,28 @@ $genres = explode(",", $post['tags']);
   <body>
     <?php include('header.php'); ?>
     <div class="container fw-bold mt-3">
-      <h1 class="text-center fw-semibold"><?php echo $post['title'] ?></h1>
-      <p class="text-secondary mt-3">Author: <?php echo $post['username'] ?></p>
-      <?php if (count($genres) > 0): ?>
-        <p class="mt-2 text-secondary">Genre: <?php echo implode(", ", $genres); ?></p>
-      <?php endif; ?>
-      <p class="mt-3 text-secondary">Synopsis</p> 
-      <small class="container text-secondary font-l"><?php echo $post['synopsis'] ?></small> 
+      <h1 class="text-center fw-semibold"><?php echo isset($post['title']) ? $post['title'] : '' ?></h1>
+      <p class="mt-3">Author: <?php echo isset($post['username']) ? $post['username'] : '' ?></p>
+      <p class="mt-2">Genre: <?php echo isset($post['tags']) ? $post['tags'] : '' ?></p>
+      <p class="mt-3">Synopsis</p> 
+      <small class="container font-l"><?php echo isset($post['synopsis']) ? $post['synopsis'] : '' ?></small> 
       <hr>
-      <small class="mt-3 font-l"><?php echo $post['content'] ?></small></br>
+      <small class="mt-3 font-l"><?php echo isset($post['content']) ? $post['content'] : '' ?></small></br>
       <div class="mb-5"></div>
-      <a class="text-decoration-none" href="index.php">Back to home</a>
-      <div class="mt-5"></div>
+      <?php if ($next_post && isset($next_post['id'])): ?>
+        <a class="text-decoration-none float-start mb-5 btn btn-primary rounded-pill btn-sm fw-bold" href="view.php?id=<?php echo $next_post['id'] ?>"><i class="bi-arrow-left-circle-fill"></i> Next</a>
+      <?php endif; ?> 
+      <?php if ($previous_post && isset($previous_post['id'])): ?>
+        <a class="text-decoration-none float-end mb-5 btn btn-primary rounded-pill btn-sm fw-bold" href="view.php?id=<?php echo $previous_post['id'] ?>">Previous <i class="bi bi-arrow-right-circle-fill"></i></a>
+      <?php endif; ?>
+      <br>
     </div>
-  <style>
-    @media (min-width: 768px) {
-      .font-l {
-        font-size: 17px;
-      }
-    }  
-  </style>
+    <style>
+      @media (min-width: 768px) {
+        .font-l {
+          font-size: 17px;
+        }
+      }  
+    </style>
   </body>
 </html>

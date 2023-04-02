@@ -21,7 +21,7 @@ $total_pages = ceil($total_posts / $per_page);
 ?>
 
 <!DOCTYPE html>
-<html>
+<html data-bs-theme="dark">
   <head>
     <title><?php echo $user['username'] ?></title>
     <meta charset="UTF-8"> 
@@ -41,8 +41,8 @@ $total_pages = ceil($total_posts / $per_page);
                 <a class="me-1 ms-1 mt-1 mb-1 text-secondary text-decoration-none fw-bold" href="view.php?id=<?php echo $post['id'] ?>"><?php echo $post['title'] ?></a>
                 <header class="d-flex justify-content-center py-3">
                   <ul class="nav nav-pills">
-                    <li class="nav-item btn-sm"><a class="btn btn-sm btn-danger me-1" href="delete.php?id=<?php echo $post['id'] ?>" onclick="return confirm('Are you sure?')"><i class="bi bi-trash-fill"></i></a></li>
-                    <li class="nav-item"><a class="btn btn-sm btn-primary ms-1" href="edit.php?id=<?php echo $post['id'] ?>"><i class="bi bi-pencil-fill"></i></a></li>
+                    <li class="nav-item btn-sm"><a class="btn btn-sm btn-secondary me-1" href="delete.php?id=<?php echo $post['id'] ?>" onclick="return confirm('Are you sure?')"><i class="bi bi-trash-fill"></i></a></li>
+                    <li class="nav-item"><a class="btn btn-sm btn-secondary ms-1" href="edit.php?id=<?php echo $post['id'] ?>"><i class="bi bi-pencil-fill"></i></a></li>
                   </ul>
                 </header>
               </div>
