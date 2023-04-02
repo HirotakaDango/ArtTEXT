@@ -26,7 +26,7 @@ if (isset($_POST['submit'])) {
   </head>
   <body>
     <?php include('header.php'); ?>
-    <form method="post" enctype="multipart/form-data" class="container mt-3">
+    <form method="post" enctype="multipart/form-data" class="container-fluid mt-3">
       <div class="form-floating mb-2">
         <input class="form-control fw-bold" type="text" name="title" placeholder="Enter title" maxlength="100" required>  
         <label for="floatingInput" class="fw-bold"><small>Enter title</small></label>
@@ -40,7 +40,7 @@ if (isset($_POST['submit'])) {
         <label for="floatingInput" class="fw-bold"><small>Enter synopsis</small></label>
       </div>
       <div class="form-floating mb-2">
-        <textarea class="form-control fw-bold" style="height: 400px;" name="content" onkeydown="if(event.keyCode == 13) { document.execCommand('insertHTML', false, '<br><br>'); return false; }" placeholder="Enter content" required></textarea>
+        <textarea class="form-control fw-bold" style="height: 650px;" name="content" onkeydown="if(event.keyCode == 13) { document.execCommand('insertHTML', false, '<br><br>'); return false; }" placeholder="Enter content" required></textarea>
         <label for="floatingInput" class="fw-bold"><small>Enter content</small></label>
       </div>
       <button class="btn btn-primary fw-bold mb-5" type="submit" name="submit">Submit</button>

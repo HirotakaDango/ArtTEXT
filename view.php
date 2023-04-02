@@ -32,7 +32,7 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
   </head>
   <body>
     <?php include('header.php'); ?>
-    <div class="container fw-bold mt-3">
+    <div class="container fw-bold mt-5">
       <h1 class="text-center fw-semibold"><?php echo isset($post['title']) ? $post['title'] : '' ?></h1>
       <p class="mt-3">Author: <?php echo isset($post['username']) ? $post['username'] : '' ?></p>
       <p class="mt-2">Genre: <?php echo isset($post['tags']) ? $post['tags'] : '' ?></p>

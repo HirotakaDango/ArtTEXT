@@ -43,7 +43,7 @@ if (isset($_GET['id'])) {
   </head>
   <body>
     <?php include('header.php'); ?>
-    <form method="post" class="container mt-3">
+    <form method="post" class="container-fluid mt-3">
       <input type="hidden" name="post_id" value="<?php echo $post_id ?>">
       <div class="form-floating mb-2">
         <input class="form-control fw-bold" type="text" name="title" placeholder="Enter title" maxlength="100" required value="<?php echo $post['title'] ?>">  
@@ -58,7 +58,7 @@ if (isset($_GET['id'])) {
         <label for="floatingInput" class="fw-bold"><small>Enter synopsis</small></label>
       </div>
       <div class="form-floating mb-2">
-        <textarea class="form-control fw-bold" style="height: 400px;" name="content" oninput="stripHtmlTags(this)" placeholder="Enter content" required><?php echo strip_tags($post['content']) ?></textarea>
+        <textarea class="form-control fw-bold" style="height: 650px;" name="content" oninput="stripHtmlTags(this)" placeholder="Enter content" required><?php echo strip_tags($post['content']) ?></textarea>
         <label for="floatingInput" class="fw-bold"><small>Enter content</small></label>
       </div>
       <button class="btn btn-primary fw-bold mb-5" type="submit" name="submit">Save Changes</button>
