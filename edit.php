@@ -50,8 +50,8 @@ if (isset($_GET['id'])) {
         <label for="floatingInput" class="fw-bold"><small>Enter title</small></label>
       </div>
       <div class="form-floating mb-2">
-        <input class="form-control fw-bold" type="text" name="tags" placeholder="Enter tag" maxlength="50" required value="<?php echo $post['tags'] ?>">  
-        <label for="floatingInput" class="fw-bold"><small>Enter tag</small></label>
+        <input class="form-control fw-bold" type="text" name="tags" placeholder="Enter genre" maxlength="50" required value="<?php echo $post['tags'] ?>">  
+        <label for="floatingInput" class="fw-bold"><small>Enter genre</small></label>
       </div>
       <div class="form-floating mb-2">
         <textarea class="form-control fw-bold" style="height: 200px;" type="text" name="synopsis" placeholder="Enter synopsis" maxlength="450" required><?php echo $post['synopsis'] ?></textarea>
