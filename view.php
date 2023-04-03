@@ -7,7 +7,7 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 $id = $_GET['id'];
-$query = "SELECT posts.id, posts.title, posts.synopsis, posts.content, posts.user_id, posts.cover, posts.tags, users.username FROM posts JOIN users ON posts.user_id = users.id WHERE posts.id = '$id'";
+$query = "SELECT posts.id, posts.title, posts.synopsis, posts.content, posts.user_id, posts.tags, posts.date, users.username FROM posts JOIN users ON posts.user_id = users.id WHERE posts.id = '$id'";
 $post = $db->query($query)->fetch();
 
 // Query for the next and previous posts by the same user
@@ -35,6 +35,7 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
     <div class="container fw-bold mt-5">
       <h1 class="text-center fw-semibold"><?php echo isset($post['title']) ? $post['title'] : '' ?></h1>
       <p class="mt-5">Author: <?php echo isset($post['username']) ? $post['username'] : '' ?></p>
+      <p class="mt-5">Published: <?php echo isset($post['date']) ? $post['date'] : '' ?></p>
       <p class="mt-2">Genre: <?php echo isset($post['tags']) ? $post['tags'] : '' ?></p>
       <p class="mt-3">Synopsis</p> 
       <small class="container font-l"><?php echo isset($post['synopsis']) ? $post['synopsis'] : '' ?></small> 

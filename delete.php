@@ -15,11 +15,6 @@ if (isset($_GET['id'])) {
   if ($post) {
     $query = "DELETE FROM posts WHERE id='$post_id'";
     $db->exec($query);
-    
-    $cover_path = "cover/{$post['cover']}";
-    if (file_exists($cover_path) && is_file($cover_path)) {
-      unlink($cover_path);
-    }
   }
 }
 
