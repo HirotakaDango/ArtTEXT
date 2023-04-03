@@ -16,6 +16,9 @@
               <a class="nav-link fw-bold <?php if(basename($_SERVER['PHP_SELF']) == 'profile.php') echo 'active' ?>" href="profile.php">Profile</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link fw-bold <?php if(basename($_SERVER['PHP_SELF']) == 'setting.php') echo 'active' ?>" href="setting.php">Setting</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link fw-bold" href="logout.php">Logout</a>
             </li> 
           </ul>
