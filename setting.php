@@ -20,9 +20,9 @@ $user_id = $_SESSION['user_id'];
 // Check if form submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Get input data
-  $current_password = $_POST['current_password'];
-  $new_password = $_POST['new_password'];
-  $confirm_password = $_POST['confirm_password'];
+  $current_password = htmlspecialchars($_POST['current_password']);
+  $new_password = htmlspecialchars($_POST['new_password']);
+  $confirm_password = htmlspecialchars($_POST['confirm_password']);
 
   // Validate input data
   $errors = [];
@@ -48,15 +48,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // If no errors, update password in database
   if (empty($errors)) {
-    $stmt = $db->prepare("UPDATE users SET password = :password WHERE id = :user_id");
-    $stmt->bindParam(":password", $new_password);
+    $new_password_hash = password_hash($new_password, PASSWORD_DEFAULT);
+    $stmt = $db->prepare("UPDATE users SET password_hash = :password_hash WHERE id = :user_id");
+    $stmt->bindParam(":password_hash", $new_password_hash);
     $stmt->bindParam(":user_id", $user_id);
     $stmt->execute();
     header("Location: profile.php");
     exit();
   }
 }
-
 ?>
 
 <!DOCTYPE html>
