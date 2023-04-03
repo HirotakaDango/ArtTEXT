@@ -29,7 +29,7 @@ if (isset($_POST['login'])) {
   }
 } elseif (isset($_POST['register'])) {
   $username = htmlspecialchars(trim($_POST['username']));
-  $password = htmlspecialchars($_POST['password']));
+  $password = htmlspecialchars($_POST['password']);
 
   if (empty($username) || empty($password)) {
     echo 'Please enter username and password';

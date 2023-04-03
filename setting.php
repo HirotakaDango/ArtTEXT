@@ -48,13 +48,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // If no errors, update password in database
   if (empty($errors)) {
-    $new_password_hash = password_hash($new_password, PASSWORD_DEFAULT);
-    $stmt = $db->prepare("UPDATE users SET password_hash = :password_hash WHERE id = :user_id");
-    $stmt->bindParam(":password_hash", $new_password_hash);
+    $stmt = $db->prepare("UPDATE users SET password = :new_password WHERE id = :user_id");
+    $stmt->bindParam(":new_password", $new_password);
     $stmt->bindParam(":user_id", $user_id);
     $stmt->execute();
-    header("Location: profile.php");
-    exit();
+    $success_message = "Password updated successfully.";
   }
 }
 ?>
@@ -73,13 +71,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container mt-3">
 
       <h1 class="text-center fw-semibold mb-3">Change Password</h1>
-
+      <?php if (isset($success_message)): ?>
+        <div class="alert alert-success"><?php echo $success_message; ?></div>
+      <?php endif; ?>
       <?php if (!empty($errors)): ?>
-        <ul>
           <?php foreach ($errors as $error): ?>
-            <li><?= htmlspecialchars($error) ?></li>
+            <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
           <?php endforeach; ?>
-        </ul>
       <?php endif; ?>
 
       <form method="post">
