@@ -33,20 +33,20 @@ $total_pages = ceil($total_posts / $per_page);
     <?php include('header.php'); ?>
     <div class="mt-3">
       <h3 class="text-center"><?php echo $user['username'] ?>'s works</h3>
-        <div class="container-fluid text-center">
-          <div class="contents">
-            <?php foreach ($posts as $post): ?>
-              <div class="content card border border-2 h-100">
-                <a class="border-bottom display-1 mt-1" href="view.php?id=<?php echo $post['id'] ?>"><i class="bi bi-book-half text-secondary"></i></a>
-                <a class="me-1 ms-1 mt-1 mb-1 text-secondary text-decoration-none fw-bold" href="view.php?id=<?php echo $post['id'] ?>"><?php echo $post['title'] ?></a>
-                <header class="d-flex justify-content-center py-3">
-                  <ul class="nav nav-pills">
-                    <li class="nav-item btn-sm"><a class="btn btn-sm btn-secondary me-1" href="delete.php?id=<?php echo $post['id'] ?>" onclick="return confirm('Are you sure?')"><i class="bi bi-trash-fill"></i></a></li>
-                    <li class="nav-item"><a class="btn btn-sm btn-secondary ms-1" href="edit.php?id=<?php echo $post['id'] ?>"><i class="bi bi-pencil-fill"></i></a></li>
-                  </ul>
-                </header>
-              </div>
-            <?php endforeach ?> 
+      <div class="container-fluid text-center">
+        <div class="contents">
+          <?php foreach ($posts as $post): ?>
+            <div class="content card border border-2 h-100">
+              <a class="border-bottom display-1 mt-1" href="view.php?id=<?php echo $post['id'] ?>"><i class="bi bi-book-half text-secondary"></i></a>
+              <a class="me-1 ms-1 mt-1 mb-1 text-secondary text-decoration-none fw-bold" href="view.php?id=<?php echo $post['id'] ?>"><?php echo $post['title'] ?></a>
+              <header class="d-flex justify-content-center py-3">
+                <ul class="nav nav-pills">
+                  <li class="nav-item btn-sm"><a class="btn btn-sm btn-secondary me-1" href="delete.php?id=<?php echo $post['id'] ?>" onclick="return confirm('Are you sure?')"><i class="bi bi-trash-fill"></i></a></li>
+                  <li class="nav-item"><a class="btn btn-sm btn-secondary ms-1" href="edit.php?id=<?php echo $post['id'] ?>"><i class="bi bi-pencil-fill"></i></a></li>
+                </ul>
+              </header>
+            </div>
+          <?php endforeach ?> 
         </div>
       </div>
     </div>
