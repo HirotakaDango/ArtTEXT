@@ -59,7 +59,7 @@ if (isset($_POST['login'])) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en" <?php if($theme == 'dark') { echo 'data-bs-theme="dark"'; } ?>>
+<html lang="en" data-bs-theme="dark">
   <head>
     <title>ArtTEXT</title>
     <meta charset="UTF-8"> 
