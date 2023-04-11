@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en" <?php if($theme == 'dark') { echo 'data-bs-theme="dark"'; } ?>>
+<html lang="en" data-bs-theme="dark">
   <head>
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1">
