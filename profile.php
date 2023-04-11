@@ -32,7 +32,7 @@ $total_pages = ceil($total_posts / $per_page);
   <body>
     <?php include('header.php'); ?>
     <div class="mt-3">
-      <h3 class="text-center"><?php echo $user['username'] ?>'s works</h3>
+      <h3 class="text-center fw-bold"><?php echo $user['username'] ?>'s works</h3>
       <div class="container-fluid text-center">
         <div class="contents">
           <?php foreach ($posts as $post): ?>
