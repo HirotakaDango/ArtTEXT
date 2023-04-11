@@ -19,10 +19,30 @@ $previous_post = $db->query($previous_post_query)->fetch();
 // Query to check if there are more than 1 post by the same user
 $user_posts_query = "SELECT id FROM posts WHERE user_id = '$post[user_id]'";
 $user_posts = $db->query($user_posts_query)->fetchAll();
+
+$theme = 'light';
+if(isset($_COOKIE['theme'])) {
+  $theme = $_COOKIE['theme'];
+} else if(isset($_SERVER['HTTP_REFERER'])) {
+  $prev_page = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH);
+  if(in_array($prev_page, ['/index.php', '/upload.php', '/profile.php', '/edit.php', '/setting.php', '/view.php', '/session.php'])) {
+    if(isset($_SESSION['theme'])) {
+      $theme = $_SESSION['theme'];
+    }
+  }
+}
+
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $theme = $_POST['theme'];
+  setcookie('theme', $theme, time() + (86400 * 30), "/");
+  $_SESSION['theme'] = $theme;
+  header('Location: ' . $_SERVER['PHP_SELF']);
+  exit();
+}
 ?>
 
 <!DOCTYPE html>
-<html data-bs-theme="dark">
+<html lang="en" <?php if($theme == 'dark') { echo 'data-bs-theme="dark"'; } ?>>
   <head>
     <title><?php echo $post['title'] ?></title>
     <meta charset="UTF-8"> 

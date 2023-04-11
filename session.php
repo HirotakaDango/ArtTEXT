@@ -21,6 +21,7 @@ if (isset($_POST['login'])) {
 
   if ($user) {
     $_SESSION['user_id'] = $user['id'];
+    setcookie('user_id', $user['id'], time() + (365 * 24 * 60 * 60), '/');
     header('Location: index.php');
     exit;
   } else {
@@ -51,13 +52,34 @@ if (isset($_POST['login'])) {
   $stmt->execute(array(':username' => $username, ':password' => $password));
 
   $_SESSION['user_id'] = $db->lastInsertId();
+  setcookie('user_id', $_SESSION['user_id'], time() + (365 * 24 * 60 * 60), '/');
   header('Location: index.php');
   exit;
+}
+
+$theme = 'light';
+if(isset($_COOKIE['theme'])) {
+  $theme = $_COOKIE['theme'];
+} else if(isset($_SERVER['HTTP_REFERER'])) {
+  $prev_page = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH);
+  if(in_array($prev_page, ['/index.php', '/upload.php', '/profile.php', '/edit.php', '/setting.php', '/view.php', '/session.php'])) {
+    if(isset($_SESSION['theme'])) {
+      $theme = $_SESSION['theme'];
+    }
+  }
+}
+
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $theme = $_POST['theme'];
+  setcookie('theme', $theme, time() + (86400 * 30), "/");
+  $_SESSION['theme'] = $theme;
+  header('Location: ' . $_SERVER['PHP_SELF']);
+  exit();
 }
 ?>
 
 <!DOCTYPE html>
-<html data-bs-theme="dark">
+<html lang="en" <?php if($theme == 'dark') { echo 'data-bs-theme="dark"'; } ?>>
   <head>
     <title>ArtTEXT</title>
     <meta charset="UTF-8"> 
