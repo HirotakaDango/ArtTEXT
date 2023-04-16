@@ -33,7 +33,7 @@ if (isset($_GET['id'])) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en" <?php if($theme == 'dark') { echo 'data-bs-theme="dark"'; } ?>>
+<html lang="en" data-bs-theme="dark">
   <head>
     <title>Edit <?php echo $post['title'] ?></title>
     <meta charset="UTF-8"> 
