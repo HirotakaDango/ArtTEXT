@@ -14,6 +14,7 @@ if (isset($_POST['submit'])) {
   $synopsis = htmlspecialchars($_POST['synopsis']);
   $content = htmlspecialchars($_POST['content']);
   $content = nl2br($content);
+  $synopsis = nl2br($synopsis);
   $query = "UPDATE posts SET title='$title', tags='$tags', synopsis='$synopsis', content='$content' WHERE id='$post_id'";
   $db->exec($query);
   header("Location: profile.php");
@@ -54,7 +55,7 @@ if (isset($_GET['id'])) {
         <label for="floatingInput" class="fw-bold"><small>Enter genre</small></label>
       </div>
       <div class="form-floating mb-2">
-        <textarea class="form-control fw-bold" style="height: 200px;" type="text" name="synopsis" placeholder="Enter synopsis" maxlength="450" required><?php echo $post['synopsis'] ?></textarea>
+        <textarea class="form-control fw-bold" style="height: 200px;" type="text" name="synopsis" oninput="stripHtmlTags(this)" placeholder="Enter synopsis" maxlength="450" required><?php echo strip_tags($post['synopsis']) ?></textarea>
         <label for="floatingInput" class="fw-bold"><small>Enter synopsis</small></label>
       </div>
       <div class="form-floating mb-2">

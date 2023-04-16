@@ -48,9 +48,9 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
         } ?>
       </p>
       <p class="mt-3">Synopsis</p> 
-      <small class="container font-l"><?php echo isset($post['synopsis']) ? $post['synopsis'] : '' ?></small> 
+      <p class="font-l" style="white-space: pre-wrap; word-break: break-word; line-height: 1.8;"><?php echo isset($post['synopsis']) ? $post['synopsis'] : '' ?></p>
       <hr>
-      <small class="mt-3 font-l" style="word-wrap: break-word;"><?php echo isset($post['content']) ? $post['content'] : '' ?></small></br>
+      <p class="mt-3 font-l" style="word-wrap: break-word; line-height: 1.8"><?php echo isset($post['content']) ? $post['content'] : '' ?></p></br>
       <div class="mb-5"></div>
       <?php if ($next_post && isset($next_post['id'])): ?>
         <a class="text-decoration-none float-start mb-5 btn btn-primary rounded-pill btn-sm fw-bold" href="view.php?id=<?php echo $next_post['id'] ?>"><i class="bi-arrow-left-circle-fill"></i> Next</a>
@@ -65,7 +65,13 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
         .font-l {
           font-size: 17px;
         }
-      }  
+      }
+      
+      @media (max-width: 767px) {
+        .font-l {
+          font-size: 14px;
+        }
+      }
     </style>
   </body>
 </html>
