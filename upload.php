@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
   <head>
-    <title>upload</title>
+    <title>Upload</title>
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
