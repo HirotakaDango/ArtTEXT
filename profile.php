@@ -28,11 +28,34 @@ $total_pages = ceil($total_posts / $per_page);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="transitions.css" />
+    <script type="module" src="swup.js"></script>
   </head>
   <body>
+    <main id="swup" class="transition-main">
     <?php include('header.php'); ?>
     <div class="mt-3">
-      <h3 class="text-center fw-bold"><?php echo $user['username'] ?>'s works</h3>
+      <div class="container-fluid">
+        <div class="card border-4 p-3 gap-3 rounded-4">
+          <h3 class="fw-bold">Name: <?php echo $user['username']; ?></h3>
+          <h3 class="fw-bold">Posts: <?php echo $total_posts; ?></h3>
+          <button class="btn btn-outline-light border-2 rounded fw-medium" style="width: 100px;" type="button" data-bs-toggle="modal" data-bs-target="#logOut">log out</button>
+        </div>
+        <h3 class="fw-bold my-3">Your Works</h3>
+      </div>
+      <div class="modal fade" id="logOut" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content rounded-3 shadow">
+            <div class="modal-body p-4 text-center">
+              <h5 class="mb-0">Are you sure want to log out?</h5>
+            </div>
+            <div class="modal-footer flex-nowrap p-0">
+              <a href="logout.php" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"><strong>Yes, I want!</strong></a>
+              <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" data-bs-dismiss="modal">No, keep it!</button>
+            </div>
+          </div>
+        </div>
+      </div> 
       <div class="container-fluid text-center">
         <div class="contents">
           <?php foreach ($posts as $post): ?>
@@ -67,6 +90,7 @@ $total_pages = ceil($total_posts / $per_page);
         margin-right: 1px;
         margin-left: 1px;
       }
-    </style> 
+    </style>
+    </main>
   </body>
 </html>

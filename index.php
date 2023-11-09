@@ -1,10 +1,4 @@
 <?php
-session_start();
-$db = new PDO('sqlite:database.db');
-if (!isset($_SESSION['user_id'])) {
-  header('Location: session.php');
-}
-
 $db = new PDO('sqlite:database.db');
 $db->exec("CREATE TABLE IF NOT EXISTS users ( id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, password TEXT NOT NULL)");
 $db->exec("CREATE TABLE IF NOT EXISTS posts ( id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, synopsis TEXT NOT NULL, content TEXT NOT NULL, user_id INTEGER NOT NULL, tags TEXT NOT NULL, date DATETIME, FOREIGN KEY (user_id) REFERENCES users(id))");
@@ -29,8 +23,11 @@ $total_pages = ceil($total_posts / $posts_per_page);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="transitions.css" />
+    <script type="module" src="swup.js"></script>
   </head>
   <body>
+    <main id="swup" class="transition-main">
     <?php include('header.php'); ?>
     <div class="mt-4">
       <div class="container-fluid text-center">
@@ -64,5 +61,6 @@ $total_pages = ceil($total_posts / $posts_per_page);
         margin-left: 1px;
       }
     </style>
+    </main>
   </body>
 </html>

@@ -41,8 +41,11 @@ if (isset($_GET['id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="transitions.css" />
+    <script type="module" src="swup.js"></script>
   </head>
   <body>
+    <main id="swup" class="transition-main">
     <?php include('header.php'); ?>
     <form method="post" class="container-fluid mt-3">
       <input type="hidden" name="post_id" value="<?php echo $post_id ?>">
@@ -62,7 +65,11 @@ if (isset($_GET['id'])) {
         <textarea class="form-control fw-bold" style="height: 650px;" name="content" oninput="stripHtmlTags(this)" placeholder="Enter content" required><?php echo strip_tags($post['content']) ?></textarea>
         <label for="floatingInput" class="fw-bold"><small>Enter content</small></label>
       </div>
-      <button class="btn btn-primary fw-bold mb-5" type="submit" name="submit">Save Changes</button>
+      <div class="d-flex">
+        <button class="me-auto btn btn-primary fw-bold mb-5" type="submit" name="submit">save changes</button>
+        <a class="ms-auto btn btn-primary fw-bold mb-5" href="profile.php">back to profile</a>
+      </div>
     </form>
+    </main>
   </body>
 </html>

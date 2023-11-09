@@ -65,11 +65,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="transitions.css" />
+    <script type="module" src="swup.js"></script>
   </head>
   <body>
+    <main id="swup" class="transition-main">
     <?php include('header.php'); ?>
     <div class="container mt-3">
-
       <h1 class="text-center fw-semibold mb-3">Change Password</h1>
       <?php if (isset($success_message)): ?>
         <div class="alert alert-success"><?php echo $success_message; ?></div>
@@ -97,11 +99,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <header class="d-flex justify-content-center py-3">
             <ul class="nav nav-pills">
               <li class="nav-item"><button type="submit" class="btn btn-secondary me-1 fw-bold" name="submit">Save</button></li>
-              <li class="nav-item d-md-none d-lg-none"><a href="setting.php" class="btn btn-secondary ms-1 fw-bold">Back</a></li>
+              <li class="nav-item d-md-none d-lg-none"><a href="profile.php" class="btn btn-secondary ms-1 fw-bold">Back</a></li>
             </ul>
           </header>
         </div> 
       </form>
     </div>
+    </main>
   </body>
 </html>

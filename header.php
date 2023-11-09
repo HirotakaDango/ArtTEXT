@@ -1,5 +1,3 @@
-
-
     <nav class="navbar fixed-top navbar-expand-md navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
         <a class="navbar-brand fw-bold" href="index.php">ArtTEXT</a>
@@ -19,9 +17,6 @@
             </li>
             <li class="nav-item">
               <a class="nav-link fw-bold <?php if(basename($_SERVER['PHP_SELF']) == 'setting.php') echo 'active' ?>" href="setting.php">Setting</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link fw-bold" href="logout.php">Logout</a>
             </li>
           </ul>
         </div>

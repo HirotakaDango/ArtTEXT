@@ -1,11 +1,6 @@
 <?php
-session_start();
 $db = new PDO('sqlite:database.db');
-if (!isset($_SESSION['user_id'])) {
-  header('Location: session.php');
-}
 
-$user_id = $_SESSION['user_id'];
 $id = $_GET['id'];
 $query = "SELECT posts.id, posts.title, posts.synopsis, posts.content, posts.user_id, posts.tags, posts.date, users.username FROM posts JOIN users ON posts.user_id = users.id WHERE posts.id = '$id'";
 $post = $db->query($query)->fetch();
@@ -29,8 +24,11 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="transitions.css" />
+    <script type="module" src="swup.js"></script>
   </head>
   <body>
+    <main id="swup" class="transition-main">
     <?php include('header.php'); ?>
     <div class="container fw-bold mt-5">
       <h1 class="text-center fw-semibold"><?php echo isset($post['title']) ? $post['title'] : '' ?></h1>
@@ -60,5 +58,6 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
       <?php endif; ?>
       <br>
     </div>
+    </main>
   </body>
 </html>
