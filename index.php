@@ -62,5 +62,22 @@ $total_pages = ceil($total_posts / $posts_per_page);
       }
     </style>
     </main>
+    <script>
+      function myFunction() {
+        var dots = document.getElementById("limitedText");
+        var moreText = document.getElementById("more");
+        var btnText = document.getElementById("myBtn");
+
+        if (moreText.style.display === "none") {
+          dots.style.display = "none";
+          moreText.style.display = "inline";
+          btnText.innerHTML = "read less";
+        } else {
+          dots.style.display = "inline";
+          moreText.style.display = "none";
+          btnText.innerHTML = "read more";
+        }
+      }
+    </script>
   </body>
 </html>
