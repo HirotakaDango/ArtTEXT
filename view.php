@@ -72,21 +72,24 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
               $patternSynopsis = '/\bhttps?:\/\/\S+/i';
 
               $formattedTextSynopsis = preg_replace_callback($patternSynopsis, function ($matchesSynopsis) {
-                $urlSynopsis = htmlspecialchars($matches[0]);
+                $urlSynopsis = htmlspecialchars($matchesSynopsis[0]);
                 return '<a href="' . $urlSynopsis . '">' . $urlSynopsis . '</a>';
               }, $messageTextWithoutTagsSynopsis);
 
-              $formattedTextWithLineBreaksSynopsis = nl2br($formattedTextSynopsis);
-              echo $formattedTextWithLineBreaksSynopsis;
+              $paragraphs = explode("\n", $formattedTextSynopsis);
+    
+              foreach ($paragraphs as $paragraph) {
+                echo '<p class="small" style="white-space: break-spaces; line-height: 1.8;">' . $paragraph . '</p>';
+              }
             } else {
               echo "No text.";
             }
           ?>
         </p>
         <hr class="border-4 rounded-pill">
-        <p class="mt-3 small overflow-auto" style="white-space: break-spaces; line-height: 1.8;">
+        <p class="mt-3 small" style="white-space: break-spaces; line-height: 1.8;">
           <?php
-            $desc = isset($post['content']) ? $post['content'] : ''; // Replace with the desired variable or value
+            $desc = isset($post['content']) ? $post['content'] : '';
 
             if (!empty($desc)) {
               $messageText = $desc;
@@ -98,13 +101,21 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
                 return '<a href="' . $url . '">' . $url . '</a>';
               }, $messageTextWithoutTags);
 
-              $charLimit = 2000; // Set your character limit
+              $charLimit = 2000;
 
               if (strlen($formattedText) > $charLimit) {
                 $limitedText = substr($formattedText, 0, $charLimit);
-                echo '<span id="limitedText">' . nl2br($limitedText) . '...</span>'; // Display the capped text with line breaks and "..."
-                echo '<span id="more" style="display: none;">' . nl2br($formattedText) . '</span>'; // Display the full text initially hidden with line breaks
-                echo '</br><button class="btn rounded-pill mt-2 fw-medium w-100 text-white small" onclick="myFunction()" id="myBtn"><small>read more</small></button>';
+                $paragraphs = explode("\n", $limitedText);
+
+                echo '<div id="limitedText">';
+                foreach ($paragraphs as $paragraph) {
+                  echo '<p class="small" style="white-space: break-spaces; line-height: 1.8;">' . nl2br($paragraph) . '</p>';
+                }
+                echo '</div>';
+                
+                echo '<div id="more" style="display: none;">' . nl2br($formattedText) . '</div>';
+                
+                echo '<br/><button class="btn rounded-pill mt-2 fw-medium w-100 text-white small" onclick="myFunction()" id="myBtn"><small>read more</small></button>';
               } else {
                 // If the text is within the character limit, just display it with line breaks.
                 echo nl2br($formattedText);
