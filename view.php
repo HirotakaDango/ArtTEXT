@@ -64,10 +64,10 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
       <div class="text-white fw-medium">
         <p class="small" style="white-space: break-spaces; line-height: 1.8;">
           <?php
-            $imageTextSynopsis = isset($post['synopsis']) ? $post['synopsis'] : ''; // Replace with the desired variable or value
+            $novelTextSynopsis = isset($post['synopsis']) ? $post['synopsis'] : ''; // Replace with the desired variable or value
 
-            if (!empty($imageTextSynopsis)) {
-              $messageTextSynopsis = $imageTextSynopsis;
+            if (!empty($novelTextSynopsis)) {
+              $messageTextSynopsis = $novelTextSynopsis;
               $messageTextWithoutTagsSynopsis = strip_tags($messageTextSynopsis);
               $patternSynopsis = '/\bhttps?:\/\/\S+/i';
 
@@ -89,58 +89,27 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
         <hr class="border-4 rounded-pill">
         <p class="mt-3 small" style="white-space: break-spaces; line-height: 1.8;">
           <?php
-            $desc = isset($post['content']) ? $post['content'] : '';
+            $novelText = isset($post['content']) ? $post['content'] : '';
 
-            if (!empty($desc)) {
-              $messageText = $desc;
-              $messageTextWithoutTags = strip_tags($messageText);
-              $pattern = '/\bhttps?:\/\/\S+/i';
+            if (!empty($novelText)) {
+              $paragraphs = explode("\n", $novelText);
 
-              $formattedText = preg_replace_callback($pattern, function ($matches) {
-                $url = htmlspecialchars($matches[0]);
-                return '<a href="' . $url . '">' . $url . '</a>';
-              }, $messageTextWithoutTags);
+              foreach ($paragraphs as $index => $paragraph) {
+                $messageTextWithoutTags = strip_tags($paragraph);
+                $pattern = '/\bhttps?:\/\/\S+/i';
 
-              $charLimit = 2000;
+                $formattedText = preg_replace_callback($pattern, function ($matches) {
+                  $url = htmlspecialchars($matches[0]);
+                  return '<a href="' . $url . '">' . $url . '</a>';
+                }, $messageTextWithoutTags);
 
-              if (strlen($formattedText) > $charLimit) {
-                $limitedText = substr($formattedText, 0, $charLimit);
-                $paragraphs = explode("\n", $limitedText);
-
-                echo '<div id="limitedText">';
-                foreach ($paragraphs as $paragraph) {
-                  echo '<p class="small" style="white-space: break-spaces; line-height: 1.8;">' . nl2br($paragraph) . '</p>';
-                }
-                echo '</div>';
-                
-                echo '<div id="more" style="display: none;">' . nl2br($formattedText) . '</div>';
-                
-                echo '<br/><button class="btn rounded-pill mt-2 fw-medium w-100 text-white small" onclick="myFunction()" id="myBtn"><small>read more</small></button>';
-              } else {
-                // If the text is within the character limit, just display it with line breaks.
-                echo nl2br($formattedText);
+                $formattedTextWithLineBreaks = nl2br($formattedText);
+                echo "<p class='small' style=\"white-space: break-spaces; line-height: 1.8; overflow: hidden;\">$formattedTextWithLineBreaks</p>";
               }
             } else {
-              echo "User description is empty.";
+              echo "Sorry, no text...";
             }
           ?>
-          <script>
-            function myFunction() {
-              var dots = document.getElementById("limitedText");
-              var moreText = document.getElementById("more");
-              var btnText = document.getElementById("myBtn");
-
-              if (moreText.style.display === "none") {
-                dots.style.display = "none";
-                moreText.style.display = "inline";
-                btnText.innerHTML = "read less";
-              } else {
-                dots.style.display = "inline";
-                moreText.style.display = "none";
-                btnText.innerHTML = "read more";
-              }
-            }
-          </script>
         </p>
         </br>
         <div class="mb-5"></div>
