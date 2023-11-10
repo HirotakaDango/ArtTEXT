@@ -19,7 +19,7 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
   <head>
-    <title><?php echo $post['title'] ?></title>
+    <title><?php echo $post['title'] ?> by <?php echo isset($post['username']) ? $post['username'] : '' ?></title>
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
@@ -30,34 +30,153 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
   <body>
     <main id="swup" class="transition-main">
     <?php include('header.php'); ?>
-    <div class="container fw-bold mt-5">
-      <h1 class="text-center fw-semibold"><?php echo isset($post['title']) ? $post['title'] : '' ?></h1>
-      <p class="mt-5">Author: <?php echo isset($post['username']) ? $post['username'] : '' ?></p>
-      <p class="mt-2">Published: <?php echo isset($post['date']) ? $post['date'] : '' ?></p>
-      <p class="mt-2">Genre:
-      <?php if (isset($tag)) {
-        echo '<a class="btn btn-secondary btn-sm rounded-pill fw-bold" href="genre.php">All</a> ';
-        }
-        if (isset($post['tags'])) {
-          $tags = explode(',', $post['tags']);
-          foreach ($tags as $tag) {
-            echo '<a class="btn btn-secondary btn-sm rounded-pill fw-bold" href="genre.php?tag=' . urlencode(trim($tag)) . '">' . trim($tag) . '</a> ';
-          }
-        } ?>
-      </p>
-      <p class="mt-3">Synopsis</p> 
-      <p style="white-space: pre-wrap; word-break: break-word; line-height: 1.8;"><?php echo isset($post['synopsis']) ? $post['synopsis'] : '' ?></p>
-      <hr>
-      <p class="mt-3" style="word-wrap: break-word; line-height: 1.8"><?php echo isset($post['content']) ? $post['content'] : '' ?></p></br>
-      <div class="mb-5"></div>
-      <?php if ($next_post && isset($next_post['id'])): ?>
-        <a class="text-decoration-none float-start mb-5 btn btn-primary rounded-pill btn-sm fw-bold" href="view.php?id=<?php echo $next_post['id'] ?>"><i class="bi-arrow-left-circle-fill"></i> Next</a>
-      <?php endif; ?> 
-      <?php if ($previous_post && isset($previous_post['id'])): ?>
-        <a class="text-decoration-none float-end mb-5 btn btn-primary rounded-pill btn-sm fw-bold" href="view.php?id=<?php echo $previous_post['id'] ?>">Previous <i class="bi bi-arrow-right-circle-fill"></i></a>
-      <?php endif; ?>
+    <div class="container mt-5">
+      <div class="fw-bold">
+        <h1 class="text-center fw-bold"><?php echo isset($post['title']) ? $post['title'] : '' ?></h1>
+        <p class="mt-5 small">Author: <?php echo isset($post['username']) ? $post['username'] : '' ?></p>
+        <p class="mt-2 small">Published: <?php echo isset($post['date']) ? $post['date'] : '' ?></p>
+        <p class="mt-2 small">Genre:
+          <?php
+            if (isset($tag)) {
+              echo '<a class="text-decoration-none text-white border-0 btn-sm rounded-pill fw-bold" href="genre.php">All</a> ';
+            }
+
+            if (isset($post['tags'])) {
+              $tags = explode(',', $post['tags']);
+              $totalTags = count($tags);
+
+              foreach ($tags as $index => $tag) {
+                $tag = trim($tag);
+                $url = 'genre.php?tag=' . urlencode($tag);
+
+                echo '<a class="text-decoration-none text-white border-0 btn-sm rounded-pill fw-bold" href="' . $url . '">' . $tag . '</a>';
+
+                // Add a comma if it's not the last tag
+                if ($index < $totalTags - 1) {
+                  echo ', ';
+                }
+              }
+            }
+          ?>
+        </p>
+      </div>
+      <h5 class="mt-5 fw-bold">Synopsis</h5> 
+      <div class="text-white fw-medium">
+        <p class="small" style="white-space: break-spaces; line-height: 1.8;">
+          <?php
+            $imageTextSynopsis = isset($post['synopsis']) ? $post['synopsis'] : ''; // Replace with the desired variable or value
+
+            if (!empty($imageTextSynopsis)) {
+              $messageTextSynopsis = $imageTextSynopsis;
+              $messageTextWithoutTagsSynopsis = strip_tags($messageTextSynopsis);
+              $patternSynopsis = '/\bhttps?:\/\/\S+/i';
+
+              $formattedTextSynopsis = preg_replace_callback($patternSynopsis, function ($matchesSynopsis) {
+                $urlSynopsis = htmlspecialchars($matches[0]);
+                return '<a href="' . $urlSynopsis . '">' . $urlSynopsis . '</a>';
+              }, $messageTextWithoutTagsSynopsis);
+
+              $formattedTextWithLineBreaksSynopsis = nl2br($formattedTextSynopsis);
+              echo $formattedTextWithLineBreaksSynopsis;
+            } else {
+              echo "No text.";
+            }
+          ?>
+        </p>
+        <hr class="border-4 rounded-pill">
+        <p class="mt-3 small overflow-auto" style="white-space: break-spaces; line-height: 1.8;">
+          <?php
+            $desc = isset($post['content']) ? $post['content'] : ''; // Replace with the desired variable or value
+
+            if (!empty($desc)) {
+              $messageText = $desc;
+              $messageTextWithoutTags = strip_tags($messageText);
+              $pattern = '/\bhttps?:\/\/\S+/i';
+
+              $formattedText = preg_replace_callback($pattern, function ($matches) {
+                $url = htmlspecialchars($matches[0]);
+                return '<a href="' . $url . '">' . $url . '</a>';
+              }, $messageTextWithoutTags);
+
+              $charLimit = 2000; // Set your character limit
+
+              if (strlen($formattedText) > $charLimit) {
+                $limitedText = substr($formattedText, 0, $charLimit);
+                echo '<span id="limitedText">' . nl2br($limitedText) . '...</span>'; // Display the capped text with line breaks and "..."
+                echo '<span id="more" style="display: none;">' . nl2br($formattedText) . '</span>'; // Display the full text initially hidden with line breaks
+                echo '</br><button class="btn rounded-pill mt-2 fw-medium w-100 text-white small" onclick="myFunction()" id="myBtn"><small>read more</small></button>';
+              } else {
+                // If the text is within the character limit, just display it with line breaks.
+                echo nl2br($formattedText);
+              }
+            } else {
+              echo "User description is empty.";
+            }
+          ?>
+          <script>
+            function myFunction() {
+              var dots = document.getElementById("limitedText");
+              var moreText = document.getElementById("more");
+              var btnText = document.getElementById("myBtn");
+
+              if (moreText.style.display === "none") {
+                dots.style.display = "none";
+                moreText.style.display = "inline";
+                btnText.innerHTML = "read less";
+              } else {
+                dots.style.display = "inline";
+                moreText.style.display = "none";
+                btnText.innerHTML = "read more";
+              }
+            }
+          </script>
+        </p>
+        </br>
+        <div class="mb-5"></div>
+        <div id="scrollButton">
+          <?php if ($next_post && isset($next_post['id'])): ?>
+            <a class="btn btn-primary btn-md rounded-pill fw-bold position-fixed top-50 start-0 rounded-start-0" href="view.php?id=<?php echo $next_post['id'] ?>"><i class="bi bi-chevron-left" style="-webkit-text-stroke: 3px;"></i></a>
+          <?php endif; ?> 
+          <?php if ($previous_post && isset($previous_post['id'])): ?>
+            <a class="btn btn-primary btn-md rounded-pill fw-bold position-fixed top-50 end-0 rounded-end-0" href="view.php?id=<?php echo $previous_post['id'] ?>"><i class="bi bi-chevron-right" style="-webkit-text-stroke: 3px;"></i></a>
+          <?php endif; ?>
+        </div>
+      </div>
       <br>
     </div>
     </main>
+    <style>
+      .fade-in-out {
+        opacity: 1;
+        transition: opacity 0.5s ease-in-out;
+      }
+
+      .hidden-button {
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+      }
+    </style>
+    <script>
+      let lastScrollPos = 0;
+      const scrollButton = document.getElementById("scrollButton");
+
+      window.addEventListener("scroll", () => {
+        const currentScrollPos = window.pageYOffset;
+
+        if (currentScrollPos > lastScrollPos) {
+          // Scrolling down
+          scrollButton.classList.add("hidden-button");
+          scrollButton.classList.remove("fade-in-out");
+          scrollButton.style.pointerEvents = "none"; // Disable interactions
+        } else {
+          // Scrolling up
+          scrollButton.classList.remove("hidden-button");
+          scrollButton.classList.add("fade-in-out");
+          scrollButton.style.pointerEvents = "auto"; // Enable interactions
+        }
+    
+        lastScrollPos = currentScrollPos;
+      });
+    </script>
   </body>
 </html>
