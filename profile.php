@@ -80,7 +80,7 @@ $total_pages = ceil($total_posts / $per_page);
                     }
                   ?>
                   <p class="card-text text-start"><?php echo $limitedDesc; ?></p>
-                  <br>
+                  <br><br>
                   <div class="">
                     <div class="btn-group position-absolute bottom-0 start-0 m-2">
                       <button onclick="location.href='view.php?id=<?php echo $post['id'] ?>'" class="btn btn-sm btn-outline-secondary fw-medium">View</button>

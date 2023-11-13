@@ -52,7 +52,7 @@ $total_pages = ceil($total_posts / $posts_per_page);
                     }
                   ?>
                   <p class="card-text text-start"><?php echo $limitedDesc; ?></p>
-                  <br>
+                  <br><br>
                   <div class="">
                     <small class="text-body-secondary position-absolute bottom-0 end-0 m-2 fw-medium"><?php echo $post['date']; ?></small>
                   </div>
