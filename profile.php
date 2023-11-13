@@ -26,10 +26,7 @@ $total_pages = ceil($total_posts / $per_page);
     <title><?php echo $user['username'] ?></title>
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="transitions.css" />
-    <script type="module" src="swup.js"></script>
+    <?php include('bootstrapcss.php'); ?>
   </head>
   <body>
     <main id="swup" class="transition-main">
@@ -55,27 +52,52 @@ $total_pages = ceil($total_posts / $per_page);
             </div>
           </div>
         </div>
-      </div> 
-      <div class="container-fluid text-center">
-        <div class="contents">
-          <?php foreach ($posts as $post): ?>
-            <div class="content card border border-2 h-100">
-              <a class="border-bottom display-1 mt-1" href="view.php?id=<?php echo $post['id'] ?>"><i class="bi bi-book-half text-secondary"></i></a>
-              <a class="me-1 ms-1 mt-1 mb-1 text-secondary text-decoration-none fw-bold" href="view.php?id=<?php echo $post['id'] ?>"><?php echo $post['title'] ?></a>
-              <header class="d-flex justify-content-center py-3">
-                <ul class="nav nav-pills">
-                  <li class="nav-item btn-sm"><a class="btn btn-sm btn-secondary me-1" href="delete.php?id=<?php echo $post['id'] ?>" onclick="return confirm('Are you sure?')"><i class="bi bi-trash-fill"></i></a></li>
-                  <li class="nav-item"><a class="btn btn-sm btn-secondary ms-1" href="edit.php?id=<?php echo $post['id'] ?>"><i class="bi bi-pencil-fill"></i></a></li>
-                </ul>
-              </header>
-            </div>
-          <?php endforeach ?> 
-        </div>
+      </div>
+    </div>
+    <div class="container-fluid my-4">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-md-4 g-2">
+        <?php foreach ($posts as $post): ?>
+          <div class="col">
+            <a class="content text-decoration-none" href="view.php?id=<?php echo $post['id'] ?>">
+              <div class="card shadow-sm h-100 d-flex justify-content-center align-items-center text-center position-relative">
+                <i class="bi bi-book-half display-1 p-5 text-secondary border-bottom w-100"></i>
+                <h5 class="border-bottom w-100 p-3"><?php echo $post['title']; ?></h5>
+                <div class="card-body">
+                  <?php
+                    // Get the full description
+                    $fullDesc = $post['content'];
+
+                    // Limit the description to 120 characters (words)
+                    $limitedDesc = substr($post['content'], 0, 120);
+
+                    // Find the position of the last word within the first 120 characters
+                    $lastSpacePos = strrpos($limitedDesc, ' ');
+
+                    // Check if the full description is longer than the limited description
+                    if (strlen($post['content']) > strlen($limitedDesc)) {
+                      // If it is, add a "full view" link
+                      $limitedDesc = substr($limitedDesc, 0, $lastSpacePos).'...';
+                    }
+                  ?>
+                  <p class="card-text text-start"><?php echo $limitedDesc; ?></p>
+                  <br>
+                  <div class="">
+                    <div class="btn-group position-absolute bottom-0 start-0 m-2">
+                      <button onclick="location.href='view.php?id=<?php echo $post['id'] ?>'" class="btn btn-sm btn-outline-secondary fw-medium">View</button>
+                      <button onclick="location.href='edit.php?id=<?php echo $post['id'] ?>'" class="btn btn-sm btn-outline-secondary fw-medium">Edit</button>
+                    </div>
+                    <small class="text-body-secondary position-absolute bottom-0 end-0 m-2 fw-medium"><?php echo $post['date']; ?></small>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        <?php endforeach; ?>
       </div>
     </div>
     <div class="pagination mt-4 justify-content-center">
       <?php if ($page > 1): ?>
-        <a class="btn btn-sm fw-bold btn-primary" href="?page=<?php echo $page - 1 ?>">Prev</a>
+        <a class="btn btn-sm fw-bold btn-primary me-1" href="?page=<?php echo $page - 1 ?>">Prev</a>
       <?php endif ?>
       <?php if ($page < $total_pages): ?>
         <a class="btn btn-sm fw-bold btn-primary ms-1" href="?page=<?php echo $page + 1 ?>">Next</a>
@@ -92,5 +114,6 @@ $total_pages = ceil($total_posts / $per_page);
       }
     </style>
     </main>
+    <?php include('bootstrapjs.php'); ?>
   </body>
 </html>
