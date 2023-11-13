@@ -25,7 +25,6 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
     <?php include('bootstrapcss.php'); ?>
   </head>
   <body>
-    <main id="swup" class="transition-main">
     <?php include('header.php'); ?>
     <div class="container mt-5">
       <div class="fw-bold">
@@ -121,7 +120,6 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
       </div>
       <br>
     </div>
-    </main>
     <style>
       .fade-in-out {
         opacity: 1;
