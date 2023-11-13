@@ -46,7 +46,7 @@ if (isset($_POST['submit'])) {
         <label for="floatingInput" class="fw-bold"><small>Enter synopsis</small></label>
       </div>
       <div class="form-floating mb-2">
-        <textarea class="form-control fw-bold rounded border-3 focus-ring focus-ring-dark" style="height: 650px;" name="content" onkeydown="if(event.keyCode == 13) { document.execCommand('insertHTML', false, '<br><br>'); return false; }" placeholder="Enter content" required></textarea>
+        <textarea class="form-control fw-bold rounded border-3 focus-ring focus-ring-dark vh-100" name="content" onkeydown="if(event.keyCode == 13) { document.execCommand('insertHTML', false, '<br><br>'); return false; }" placeholder="Enter content" required></textarea>
         <label for="floatingInput" class="fw-bold"><small>Enter content</small></label>
       </div>
       <button class="btn btn-primary fw-bold mb-5 w-100" type="submit" name="submit">Submit</button>
