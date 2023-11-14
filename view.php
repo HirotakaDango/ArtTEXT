@@ -25,6 +25,7 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
     <?php include('bootstrapcss.php'); ?>
   </head>
   <body>
+    <main id="swup" class="transition-main">
     <?php include('header.php'); ?>
     <div class="container mt-5">
       <div class="fw-bold">
@@ -83,7 +84,7 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
           ?>
         </p>
         <hr class="border-4 rounded-pill">
-        <p class="mt-3 small" style="white-space: break-spaces; line-height: 1.8;">
+        <p class="mt-3 small" style="white-space: break-spaces; overflow: hidden;">
           <?php
             $novelText = isset($post['content']) ? $post['content'] : '';
 
@@ -96,11 +97,16 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
 
                 $formattedText = preg_replace_callback($pattern, function ($matches) {
                   $url = htmlspecialchars($matches[0]);
-                  return '<a href="' . $url . '">' . $url . '</a>';
+
+                  // Check if the URL ends with .png, .jpg, or .webp
+                  if (preg_match('/\.(png|jpg|jpeg|webp)$/i', $url)) {
+                    return '<img class="img-fluid rounded" loading="lazy" src="' . $url . '" alt="Image">';
+                  } else {
+                    return '<a href="' . $url . '">' . $url . '</a>';
+                  }
                 }, $messageTextWithoutTags);
 
-                $formattedTextWithLineBreaks = nl2br($formattedText);
-                echo "<p class='small' style=\"white-space: break-spaces; line-height: 1.8; overflow: hidden;\">$formattedTextWithLineBreaks</p>";
+                echo "<p class='small' style=\"white-space: break-spaces; overflow: hidden;\">$formattedText</p>";
               }
             } else {
               echo "Sorry, no text...";
@@ -120,39 +126,7 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
       </div>
       <br>
     </div>
-    <style>
-      .fade-in-out {
-        opacity: 1;
-        transition: opacity 0.5s ease-in-out;
-      }
-
-      .hidden-button {
-        opacity: 0;
-        transition: opacity 0.5s ease-in-out;
-      }
-    </style>
-    <script>
-      let lastScrollPos = 0;
-      const scrollButton = document.getElementById("scrollButton");
-
-      window.addEventListener("scroll", () => {
-        const currentScrollPos = window.pageYOffset;
-
-        if (currentScrollPos > lastScrollPos) {
-          // Scrolling down
-          scrollButton.classList.add("hidden-button");
-          scrollButton.classList.remove("fade-in-out");
-          scrollButton.style.pointerEvents = "none"; // Disable interactions
-        } else {
-          // Scrolling up
-          scrollButton.classList.remove("hidden-button");
-          scrollButton.classList.add("fade-in-out");
-          scrollButton.style.pointerEvents = "auto"; // Enable interactions
-        }
-    
-        lastScrollPos = currentScrollPos;
-      });
-    </script>
+    </main>
     <?php include('bootstrapjs.php'); ?>
   </body>
 </html>

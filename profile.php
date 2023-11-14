@@ -8,7 +8,7 @@ $user_id = $_SESSION['user_id'];
 $query = "SELECT * FROM users WHERE id='$user_id'";
 $user = $db->query($query)->fetch();
 
-$per_page = 100;
+$per_page = 10;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $start_from = ($page - 1) * $per_page;
 
@@ -95,24 +95,24 @@ $total_pages = ceil($total_posts / $per_page);
         <?php endforeach; ?>
       </div>
     </div>
-    <div class="pagination mt-4 justify-content-center">
+    <div class="pagination my-4 justify-content-center gap-2">
       <?php if ($page > 1): ?>
-        <a class="btn btn-sm fw-bold btn-primary me-1" href="?page=<?php echo $page - 1 ?>">Prev</a>
+        <a class="btn btn-sm fw-bold btn-primary" href="?page=<?php echo $page - 1 ?>">Prev</a>
       <?php endif ?>
+
+      <?php
+      $start_page = max(1, $page - 2);
+      $end_page = min($total_pages, $page + 2);
+
+      for ($i = $start_page; $i <= $end_page; $i++):
+      ?>
+        <a class="btn btn-sm fw-bold btn-primary <?php echo ($i == $page) ? 'active' : ''; ?>" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+      <?php endfor ?>
+
       <?php if ($page < $total_pages): ?>
-        <a class="btn btn-sm fw-bold btn-primary ms-1" href="?page=<?php echo $page + 1 ?>">Next</a>
+        <a class="btn btn-sm fw-bold btn-primary" href="?page=<?php echo $page + 1 ?>">Next</a>
       <?php endif ?>
     </div>
-    <style>
-      .contents {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) /* Two columns with a minimum width of 300px */;
-        grid-gap: 10px;
-        justify-content: center;
-        margin-right: 1px;
-        margin-left: 1px;
-      }
-    </style>
     </main>
     <?php include('bootstrapjs.php'); ?>
   </body>

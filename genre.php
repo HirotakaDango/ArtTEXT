@@ -3,7 +3,7 @@
 $pdo = new PDO('sqlite:database.db');
 
 // set the number of posts per page
-$posts_per_page = 100;
+$posts_per_page = 10;
 
 // get the tag from the URL parameter
 $tag = isset($_GET['tag']) ? $_GET['tag'] : '';
@@ -81,24 +81,24 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php endforeach; ?>
       </div>
     </div>
-    <div class="pagination mt-4 justify-content-center">
+    <div class="pagination my-4 justify-content-center gap-2">
       <?php if ($page > 1): ?>
-        <a class="btn btn-sm fw-bold btn-primary me-1" href="?page=<?php echo $page - 1 ?>">Prev</a>
+        <a class="btn btn-sm fw-bold btn-primary" href="?tag=<?php echo $tag; ?>&page=<?php echo $page - 1 ?>">Prev</a>
       <?php endif ?>
+
+      <?php
+      $start_page = max(1, $page - 2);
+      $end_page = min($total_pages, $page + 2);
+
+      for ($i = $start_page; $i <= $end_page; $i++):
+      ?>
+        <a class="btn btn-sm fw-bold btn-primary <?php echo ($i == $page) ? 'active' : ''; ?>" href="?tag=<?php echo $tag; ?>&page=<?php echo $i; ?>"><?php echo $i; ?></a>
+      <?php endfor ?>
+
       <?php if ($page < $total_pages): ?>
-        <a class="btn btn-sm fw-bold btn-primary ms-1" href="?page=<?php echo $page + 1 ?>">Next</a>
+        <a class="btn btn-sm fw-bold btn-primary" href="?tag=<?php echo $tag; ?>&page=<?php echo $page + 1 ?>">Next</a>
       <?php endif ?>
     </div>
-    <style>
-      .contents {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) /* Two columns with a minimum width of 300px */;
-        grid-gap: 10px;
-        justify-content: center;
-        margin-right: 1px;
-        margin-left: 1px;
-      }
-    </style>
     </main>
     <?php include('bootstrapjs.php'); ?>
   </body>
