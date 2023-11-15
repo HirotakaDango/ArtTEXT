@@ -98,9 +98,18 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
                 $formattedText = preg_replace_callback($pattern, function ($matches) {
                   $url = htmlspecialchars($matches[0]);
 
-                  // Check if the URL ends with .png, .jpg, or .webp
+                  // Check if the URL ends with .png, .jpg, .jpeg, or .webp
                   if (preg_match('/\.(png|jpg|jpeg|webp)$/i', $url)) {
-                    return '<img class="img-fluid rounded" loading="lazy" src="' . $url . '" alt="Image">';
+                    return '<a href="' . $url . '" target="_blank"><img class="img-fluid rounded-4" loading="lazy" src="' . $url . '" alt="Image"></a>';
+                  } elseif (strpos($url, 'youtube.com') !== false) {
+                    // If the URL is from YouTube, embed it as an iframe with a very low-resolution thumbnail
+                    $videoId = getYouTubeVideoId($url);
+                    if ($videoId) {
+                      $thumbnailUrl = 'https://img.youtube.com/vi/' . $videoId . '/default.jpg';
+                      return '<div class="w-100 overflow-hidden position-relative ratio ratio-16x9"><iframe loading="lazy" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" class="rounded-4 position-absolute top-0 bottom-0 start-0 end-0 w-100 h-100 border-0 shadow" src="https://www.youtube.com/embed/' . $videoId . '" frameborder="0"></iframe></div>';
+                    } else {
+                      return '<a href="' . $url . '">' . $url . '</a>';
+                    }
                   } else {
                     return '<a href="' . $url . '">' . $url . '</a>';
                   }
@@ -110,6 +119,16 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
               }
             } else {
               echo "Sorry, no text...";
+            }
+
+            function getYouTubeVideoId($url)
+            {
+              $videoId = '';
+              $pattern = '/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/';
+              if (preg_match($pattern, $url, $matches)) {
+                $videoId = $matches[1];
+              }
+              return $videoId;
             }
           ?>
         </p>
