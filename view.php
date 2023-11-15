@@ -59,7 +59,7 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
       </div>
       <h5 class="mt-5 fw-bold">Synopsis</h5> 
       <div class="text-white fw-medium">
-        <p class="small" style="white-space: break-spaces; line-height: 1.8;">
+        <p class="small" style="white-space: break-spaces; overflow: hidden;">
           <?php
             $novelTextSynopsis = isset($post['synopsis']) ? $post['synopsis'] : ''; // Replace with the desired variable or value
 
@@ -76,7 +76,7 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
               $paragraphs = explode("\n", $formattedTextSynopsis);
     
               foreach ($paragraphs as $paragraph) {
-                echo '<p class="small" style="white-space: break-spaces; line-height: 1.8;">' . $paragraph . '</p>';
+                echo '<p class="small" style="white-space: break-spaces; overflow: hidden;">' . $paragraph . '</p>';
               }
             } else {
               echo "No text.";
