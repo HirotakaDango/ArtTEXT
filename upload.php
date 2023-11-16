@@ -15,7 +15,7 @@ if (isset($_POST['submit'])) {
   $date = date('Y/m/d'); // format the current date as "YYYY-MM-DD"
   $stmt = $db->prepare("INSERT INTO posts (title, content, synopsis, tags, user_id, date) VALUES (:title, :content, :synopsis, :tags, :user_id, :date)"); // added the "date" column
   $stmt->execute(array(':title' => $title, ':content' => $content, ':synopsis' => $synopsis, ':tags' => $tags, ':user_id' => $_SESSION['user_id'], ':date' => $date)); // insert the formatted date into the "date" column
-  header('Location: index.php');
+  header('Location: profile.php');
 }
 ?>
 
