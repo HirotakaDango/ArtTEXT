@@ -42,7 +42,7 @@ if (isset($_POST['submit'])) {
         </div>
       </div>
       <div class="form-floating mb-2">
-        <textarea class="form-control fw-bold border-top-0 border-start-0 border-end-0 rounded-bottom-0 border-3 focus-ring focus-ring-dark" style="height: 100px;" type="text" onkeydown="if(event.keyCode == 13) { document.execCommand('insertHTML', false, '<br><br>'); return false; }" name="synopsis" placeholder="Enter synopsis" maxlength="450" required></textarea>
+        <textarea class="form-control fw-bold border-top-0 border-start-0 border-end-0 rounded-bottom-0 border-3 focus-ring focus-ring-dark" style="height: 250px;" type="text" onkeydown="if(event.keyCode == 13) { document.execCommand('insertHTML', false, '<br><br>'); return false; }" name="synopsis" placeholder="Enter synopsis" maxlength="450" required></textarea>
         <label for="floatingInput" class="fw-bold"><small>Enter synopsis</small></label>
       </div>
       <div class="form-floating mb-2">

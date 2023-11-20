@@ -63,7 +63,7 @@ if (isset($_GET['id'])) {
         </div>
       </div>
       <div class="form-floating mb-2">
-        <textarea class="form-control fw-bold border-top-0 border-start-0 border-end-0 rounded-bottom-0 border-3 focus-ring focus-ring-dark" style="height: 100px;" type="text" name="synopsis" oninput="stripHtmlTags(this)" placeholder="Enter synopsis" maxlength="450" required><?php echo strip_tags($post['synopsis']) ?></textarea>
+        <textarea class="form-control fw-bold border-top-0 border-start-0 border-end-0 rounded-bottom-0 border-3 focus-ring focus-ring-dark" style="height: 250px;" type="text" name="synopsis" oninput="stripHtmlTags(this)" placeholder="Enter synopsis" maxlength="450" required><?php echo strip_tags($post['synopsis']) ?></textarea>
         <label for="floatingInput" class="fw-bold"><small>Enter synopsis</small></label>
       </div>
       <div class="form-floating mb-2">
