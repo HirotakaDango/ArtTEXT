@@ -54,20 +54,20 @@ if (isset($_GET['id'])) {
       <input type="hidden" name="post_id" value="<?php echo $post_id ?>">
       <div class="input-group gap-3 mb-2">
         <div class="form-floating">
-          <input class="form-control fw-bold border-top-0 border-start-0 border-end-0 rounded-bottom-0 border-3 focus-ring focus-ring-dark" type="text" name="title" placeholder="Enter title" maxlength="100" required value="<?php echo $post['title'] ?>">  
+          <input class="form-control border-top-0 border-start-0 border-end-0 rounded-bottom-0 border-3 focus-ring focus-ring-dark" type="text" name="title" placeholder="Enter title" maxlength="100" required value="<?php echo $post['title'] ?>">  
           <label for="floatingInput" class="fw-bold"><small>Enter title</small></label>
         </div>
         <div class="form-floating">
-          <input class="form-control fw-bold border-top-0 border-start-0 border-end-0 rounded-bottom-0 border-3 focus-ring focus-ring-dark" type="text" name="tags" placeholder="Enter genre" maxlength="50" required value="<?php echo $post['tags'] ?>">  
+          <input class="form-control border-top-0 border-start-0 border-end-0 rounded-bottom-0 border-3 focus-ring focus-ring-dark" type="text" name="tags" placeholder="Enter genre" maxlength="50" required value="<?php echo $post['tags'] ?>">  
           <label for="floatingInput" class="fw-bold"><small>Enter genre</small></label>
         </div>
       </div>
       <div class="form-floating mb-2">
-        <textarea class="form-control fw-bold border-top-0 border-start-0 border-end-0 rounded-bottom-0 border-3 focus-ring focus-ring-dark" style="height: 250px;" type="text" name="synopsis" oninput="stripHtmlTags(this)" placeholder="Enter synopsis" maxlength="450" required><?php echo strip_tags($post['synopsis']) ?></textarea>
+        <textarea class="form-control border-top-0 border-start-0 border-end-0 rounded-bottom-0 border-3 focus-ring focus-ring-dark" style="height: 250px;" type="text" name="synopsis" oninput="stripHtmlTags(this)" placeholder="Enter synopsis" maxlength="450" required><?php echo strip_tags($post['synopsis']) ?></textarea>
         <label for="floatingInput" class="fw-bold"><small>Enter synopsis</small></label>
       </div>
       <div class="form-floating mb-2">
-        <textarea class="form-control fw-bold rounded border-3 focus-ring focus-ring-dark vh-100" name="content" oninput="stripHtmlTags(this)" placeholder="Enter content" required><?php echo strip_tags($post['content']) ?></textarea>
+        <textarea class="form-control rounded border-3 focus-ring focus-ring-dark vh-100" name="content" oninput="stripHtmlTags(this)" placeholder="Enter content" required><?php echo strip_tags($post['content']) ?></textarea>
         <label for="floatingInput" class="fw-bold"><small>Enter content</small></label>
       </div>
       <div class="d-flex d-md-none d-lg-none">
