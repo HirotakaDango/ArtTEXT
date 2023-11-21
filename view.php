@@ -30,9 +30,9 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
     <div class="container mt-5">
       <div class="fw-bold">
         <h1 class="text-center fw-bold"><?php echo isset($post['title']) ? $post['title'] : '' ?></h1>
-        <p class="mt-5 small">Author: <?php echo isset($post['username']) ? $post['username'] : '' ?></p>
-        <p class="mt-2 small">Published: <?php echo isset($post['date']) ? $post['date'] : '' ?></p>
-        <p class="mt-2 small">Genre:
+        <p class="mt-5">Author: <?php echo isset($post['username']) ? $post['username'] : '' ?></p>
+        <p class="mt-2">Published: <?php echo isset($post['date']) ? $post['date'] : '' ?></p>
+        <p class="mt-2">Genre:
           <?php
             if (isset($tag)) {
               echo '<a class="text-decoration-none text-white border-0 btn-sm rounded-pill fw-bold" href="genre.php">All</a> ';
@@ -57,9 +57,9 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
           ?>
         </p>
       </div>
-      <h5 class="mt-5 fw-bold">Synopsis</h5> 
-      <div class="text-white fw-medium">
-        <p class="small" style="white-space: break-spaces; overflow: hidden;">
+      <p class="mt-2 fw-bold">Synopsis:</p> 
+      <div class="text-white">
+        <p style="white-space: break-spaces; overflow: hidden;">
           <?php
             $novelTextSynopsis = isset($post['synopsis']) ? $post['synopsis'] : ''; // Replace with the desired variable or value
 
@@ -76,7 +76,7 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
               $paragraphs = explode("\n", $formattedTextSynopsis);
     
               foreach ($paragraphs as $paragraph) {
-                echo '<p class="small" style="white-space: break-spaces; overflow: hidden;">' . $paragraph . '</p>';
+                echo '<p style="white-space: break-spaces; overflow: hidden;">' . $paragraph . '</p>';
               }
             } else {
               echo "No text.";
@@ -84,7 +84,7 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
           ?>
         </p>
         <hr class="border-4 rounded-pill">
-        <p class="mt-3 small" style="white-space: break-spaces; overflow: hidden;">
+        <p style="white-space: break-spaces; overflow: hidden;">
           <?php
             $novelText = isset($post['content']) ? $post['content'] : '';
 
@@ -115,7 +115,7 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
                   }
                 }, $messageTextWithoutTags);
 
-                echo "<p class='small' style=\"white-space: break-spaces; overflow: hidden;\">$formattedText</p>";
+                echo "<p style=\"white-space: break-spaces; overflow: hidden;\">$formattedText</p>";
               }
             } else {
               echo "Sorry, no text...";
@@ -134,12 +134,12 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
         </p>
         </br>
         <div class="mb-5"></div>
-        <div id="scrollButton">
+        <div>
           <?php if ($next_post && isset($next_post['id'])): ?>
-            <a class="btn btn-primary btn-md rounded-pill fw-bold position-fixed top-50 start-0 rounded-start-0" href="view.php?id=<?php echo $next_post['id'] ?>"><i class="bi bi-chevron-left" style="-webkit-text-stroke: 3px;"></i></a>
+            <a class="btn btn-primary btn-md rounded-pill fw-bold position-fixed top-50 start-0 ms-2" href="view.php?id=<?php echo $next_post['id'] ?>"><i class="bi bi-chevron-left" style="-webkit-text-stroke: 3px;"></i></a>
           <?php endif; ?> 
           <?php if ($previous_post && isset($previous_post['id'])): ?>
-            <a class="btn btn-primary btn-md rounded-pill fw-bold position-fixed top-50 end-0 rounded-end-0" href="view.php?id=<?php echo $previous_post['id'] ?>"><i class="bi bi-chevron-right" style="-webkit-text-stroke: 3px;"></i></a>
+            <a class="btn btn-primary btn-md rounded-pill fw-bold position-fixed top-50 end-0 me-2" href="view.php?id=<?php echo $previous_post['id'] ?>"><i class="bi bi-chevron-right" style="-webkit-text-stroke: 3px;"></i></a>
           <?php endif; ?>
         </div>
       </div>
