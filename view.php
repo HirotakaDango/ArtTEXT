@@ -68,7 +68,7 @@ $user_posts_query = "SELECT id FROM posts WHERE user_id = '$post[user_id]'";
 $user_posts = $db->query($user_posts_query)->fetchAll();
 
 // Get comments for the current page, ordered by id in descending order
-$query = "SELECT * FROM comments WHERE page_id='$id' ORDER BY id DESC";
+$query = "SELECT * FROM comments WHERE page_id='$id' ORDER BY id DESC LIMIT 10";
 $comments = $db->query($query)->fetchAll();
 ?>
 
@@ -192,10 +192,10 @@ $comments = $db->query($query)->fetchAll();
         <div class="mb-5"></div>
         <div>
           <?php if ($next_post && isset($next_post['id'])): ?>
-            <a class="btn btn-primary btn-md rounded-pill fw-bold position-fixed top-50 start-0 ms-2" href="view.php?id=<?php echo $next_post['id'] ?>"><i class="bi bi-chevron-left" style="-webkit-text-stroke: 3px;"></i></a>
+            <a class="btn btn-primary btn-md rounded-pill fw-bold position-fixed top-50 start-0 ms-2 z-3" href="view.php?id=<?php echo $next_post['id'] ?>"><i class="bi bi-chevron-left" style="-webkit-text-stroke: 3px;"></i></a>
           <?php endif; ?> 
           <?php if ($previous_post && isset($previous_post['id'])): ?>
-            <a class="btn btn-primary btn-md rounded-pill fw-bold position-fixed top-50 end-0 me-2" href="view.php?id=<?php echo $previous_post['id'] ?>"><i class="bi bi-chevron-right" style="-webkit-text-stroke: 3px;"></i></a>
+            <a class="btn btn-primary btn-md rounded-pill fw-bold position-fixed top-50 end-0 me-2 z-3" href="view.php?id=<?php echo $previous_post['id'] ?>"><i class="bi bi-chevron-right" style="-webkit-text-stroke: 3px;"></i></a>
           <?php endif; ?>
         </div>
       </div>
@@ -251,6 +251,7 @@ $comments = $db->query($query)->fetchAll();
           </div>
         </div>
       <?php endforeach; ?>
+      <a class="btn btn-primary w-100 mt-3" href="comments.php?id=<?php echo $id; ?>">view all comments</a>
     </div>
     </main>
     <?php include('bootstrapjs.php'); ?>
