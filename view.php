@@ -145,6 +145,8 @@ $user_posts = $db->query($user_posts_query)->fetchAll();
       </div>
       <br>
     </div>
+    <hr class="container border-4 rounded-pill">
+    <iframe class="my-5" src="comments.php?id=<?php echo $id; ?>" width="100%" style="height: 100vh; border: none;"></iframe>
     </main>
     <?php include('bootstrapjs.php'); ?>
   </body>

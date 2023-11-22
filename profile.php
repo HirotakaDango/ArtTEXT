@@ -2,7 +2,7 @@
 session_start();
 $db = new PDO('sqlite:database.db');
 if (!isset($_SESSION['user_id'])) {
-    header('Location: session.php');
+  header('Location: session.php');
 }
 $user_id = $_SESSION['user_id'];
 $query = "SELECT * FROM users WHERE id='$user_id'";
