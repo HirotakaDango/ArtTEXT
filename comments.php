@@ -24,13 +24,19 @@ if (isset($_SESSION['user_id'])) {
     $username = $user['username'];
     $comment = nl2br(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW));
 
-    // Insert the comment with the associated page_id
-    $stmt = $db->prepare('INSERT INTO comments (username, comment, date, page_id) VALUES (?, ?, ?, ?)');
-    $stmt->execute([$username, $comment, date("Y-m-d H:i:s"), $id]);
+    // Check if the comment is not empty
+    if (!empty(trim($comment))) {
+      // Insert the comment with the associated page_id
+      $stmt = $db->prepare('INSERT INTO comments (username, comment, date, page_id) VALUES (?, ?, ?, ?)');
+      $stmt->execute([$username, $comment, date("Y-m-d H:i:s"), $id]);
 
-    // Redirect to prevent form resubmission
-    header("Location: comments.php?id=$id");
-    exit();
+      // Redirect to prevent form resubmission
+      header("Location: comments.php?id=$id");
+      exit();
+    } else {
+      // Handle the case where the comment is empty
+      echo "<script>alert('Comment cannot be empty.');</script>";
+    }
   }
 
   // Handle comment deletion
