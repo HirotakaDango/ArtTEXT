@@ -84,7 +84,7 @@ if (isset($_POST['login'])) {
                   <label for="floatingPassword">Password</label>
                 </div>
                 <div class="btn-group w-100 gap-3">
-                  <button class="btn btn-primary fw-bold rounded" type="submit" name="login">Login</button>
+                  <button class="btn btn-primary fw-bold rounded px-4" type="submit" name="login">Login</button>
                   <button class="btn btn-primary fw-bold rounded" type="submit" name="register">Register</button>
                 </div>
               </form>
