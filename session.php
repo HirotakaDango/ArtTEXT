@@ -69,10 +69,10 @@ if (isset($_POST['login'])) {
   </head>
   <body>
     <div class="container">
-      <div class="modal modal-sheet d-block p-4 py-md-5" tabindex="-1" role="dialog" id="modalSignin">
+      <div class="modal modal-sheet d-block p-4 mt-5 py-md-5" tabindex="-1" role="dialog" id="modalSignin">
         <div class="modal-dialog" role="document">
           <div class="modal-content rounded-4 border-0">
-            <div class="modal-body p-5 pt-0">
+            <div class="modal-body p-md-5 pt-0">
               <h1 class="fw-bold mb-0 fs-2 text-center py-4 mb-4">Login and Register</h1>
               <form class="" method="post">
                 <div class="form-floating mb-3">
