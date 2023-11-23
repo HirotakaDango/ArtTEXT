@@ -68,22 +68,30 @@ if (isset($_POST['login'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   </head>
   <body>
-    <div class="container mt-5">
-      <h1 class="mb-5 text-center fw-bold">Login or Register</h1>
-      <form class="container-md container-lg" method="post">
-        <div class="form-floating mb-3">
-          <input type="text" name="username" class="form-control rounded-3" id="floatingInput" placeholder="Username" required>
-          <label for="floatingInput">Username</label>
+    <div class="container">
+      <div class="modal modal-sheet d-block p-4 py-md-5" tabindex="-1" role="dialog" id="modalSignin">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content rounded-4 border-0">
+            <div class="modal-body p-5 pt-0">
+              <h1 class="fw-bold mb-0 fs-2 text-center py-4 mb-4">Login and Register</h1>
+              <form class="" method="post">
+                <div class="form-floating mb-3">
+                  <input type="text" name="username" class="form-control rounded-3" id="floatingInput" placeholder="name@example.com">
+                  <label for="floatingInput">Username</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="password" name="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password">
+                  <label for="floatingPassword">Password</label>
+                </div>
+                <div class="btn-group w-100 gap-3">
+                  <button class="btn btn-primary fw-bold rounded" type="submit" name="login">Login</button>
+                  <button class="btn btn-primary fw-bold rounded" type="submit" name="register">Register</button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-        <div class="form-floating mb-3">
-          <input type="password" name="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password" required>
-          <label for="floatingPassword">Password</label>
-        </div>
-        <center>
-          <button class="btn btn-primary fw-bold" type="submit" name="login">Login</button>
-          <button class="btn btn-primary fw-bold" type="submit" name="register">Register</button>
-        </center>
-      </form>
+      </div>
     </div>
   </body>
 </html>
