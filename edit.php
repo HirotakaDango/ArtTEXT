@@ -93,7 +93,7 @@ if (isset($_GET['id'])) {
         <textarea class="form-control rounded border-3 focus-ring focus-ring-dark vh-100" name="content" oninput="stripHtmlTags(this)" placeholder="Enter content" required><?php echo strip_tags($post['content']) ?></textarea>
         <label for="floatingInput" class="fw-bold"><small>Enter content</small></label>
       </div>
-      <button type="button" class="btn btn-danger fw-bold mb-2 w-100" data-bs-toggle="modal" data-bs-target="#modalDelete">
+      <button type="button" class="btn d-md-none d-lg-none btn-danger fw-bold mb-2 w-100" data-bs-toggle="modal" data-bs-target="#modalDelete">
         delete this work
       </button>
       <div class="d-flex d-md-none d-lg-none">
