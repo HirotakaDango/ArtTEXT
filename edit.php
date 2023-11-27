@@ -47,11 +47,31 @@ if (isset($_GET['id'])) {
     <form method="post" class="container-fluid my-4">
       <div class="d-none d-md-block d-lg-block">
         <div class="d-flex">
-          <div class="btn-group me-auto">
-            <button class="btn btn-primary fw-bold mb-5" type="submit" name="submit">save changes</button>
-            <a class="btn btn-danger fw-bold mb-5" href="delete.php?id=<?php echo $post_id; ?>">delete</a>
+          <div class="btn-group mb-5 me-auto">
+            <button class="btn btn-primary fw-bold" type="submit" name="submit">save changes</button>
+            <button type="button" class="btn btn-danger fw-bold" data-bs-toggle="modal" data-bs-target="#modalDelete">
+              delete this work
+            </button>
           </div>
           <a class="ms-auto btn btn-primary fw-bold mb-5" href="<?php echo (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST']; ?>">back to home</a>
+        </div>
+      </div>
+      <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+              <h1 class="modal-title fs-5">Delete <?php echo $post['title'] ?></h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body py-0 text-center fw-medium">
+              <p>Are you sure want to delete <strong><?php echo $post['title'] ?></strong> from your works?</p>
+              <p class="small">(Warning: You can't restore back after you delete this!)</p>
+            </div>
+            <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+              <a class="btn btn-lg btn-danger" href="delete.php?id=<?php echo $post_id; ?>">Delete this!</a>
+              <button type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
         </div>
       </div>
       <input type="hidden" name="post_id" value="<?php echo $post_id ?>">
@@ -73,6 +93,9 @@ if (isset($_GET['id'])) {
         <textarea class="form-control rounded border-3 focus-ring focus-ring-dark vh-100" name="content" oninput="stripHtmlTags(this)" placeholder="Enter content" required><?php echo strip_tags($post['content']) ?></textarea>
         <label for="floatingInput" class="fw-bold"><small>Enter content</small></label>
       </div>
+      <button type="button" class="btn btn-danger fw-bold mb-2 w-100" data-bs-toggle="modal" data-bs-target="#modalDelete">
+        delete this work
+      </button>
       <div class="d-flex d-md-none d-lg-none">
         <button class="me-auto btn btn-primary fw-bold mb-5" type="submit" name="submit">save changes</button>
         <a class="ms-auto btn btn-primary fw-bold mb-5" href="profile.php">back to profile</a>
