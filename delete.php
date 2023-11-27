@@ -9,12 +9,23 @@ $db = new PDO('sqlite:database.db');
 
 if (isset($_GET['id'])) {
   $post_id = $_GET['id'];
-  $query = "SELECT * FROM posts WHERE id='$post_id'";
-  $post = $db->query($query)->fetch();
-  
+  $user_id = $_SESSION['user_id'];
+
+  // Check if the post with the given ID belongs to the current user
+  $query = "SELECT * FROM posts WHERE id=:post_id AND user_id=:user_id";
+  $stmt = $db->prepare($query);
+  $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+  $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+  $stmt->execute();
+
+  $post = $stmt->fetch();
+
   if ($post) {
-    $query = "DELETE FROM posts WHERE id='$post_id'";
-    $db->exec($query);
+    // If the post belongs to the user, delete it
+    $delete_query = "DELETE FROM posts WHERE id=:post_id";
+    $delete_stmt = $db->prepare($delete_query);
+    $delete_stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+    $delete_stmt->execute();
   }
 }
 

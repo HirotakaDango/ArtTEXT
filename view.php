@@ -32,7 +32,7 @@ if (isset($_SESSION['user_id'])) {
       $stmt->execute([$username, $comment, date("Y-m-d H:i:s"), $id]);
 
       // Redirect to prevent form resubmission
-      header("Location: comments.php?id=$id");
+      header("Location: view.php?id=$id");
       exit();
     } else {
       // Handle the case where the comment is empty

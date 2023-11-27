@@ -47,8 +47,11 @@ if (isset($_GET['id'])) {
     <form method="post" class="container-fluid my-4">
       <div class="d-none d-md-block d-lg-block">
         <div class="d-flex">
-          <button class="me-auto btn btn-primary fw-bold mb-5" type="submit" name="submit">save changes</button>
-          <a class="ms-auto btn btn-primary fw-bold mb-5" href="profile.php">back to profile</a>
+          <div class="btn-group me-auto">
+            <button class="btn btn-primary fw-bold mb-5" type="submit" name="submit">save changes</button>
+            <a class="btn btn-danger fw-bold mb-5" href="delete.php?id=<?php echo $post_id; ?>">delete</a>
+          </div>
+          <a class="ms-auto btn btn-primary fw-bold mb-5" href="<?php echo (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST']; ?>">back to home</a>
         </div>
       </div>
       <input type="hidden" name="post_id" value="<?php echo $post_id ?>">
