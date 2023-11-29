@@ -130,7 +130,7 @@ $comments = $db->query($query)->fetchAll();
             $displayDate = isset($comment['date']) ? htmlspecialchars($comment['date']) : 'No date available';
             ?>
             <div class="d-flex">
-              <p class="fw-bold me-auto">User: <?php echo $displayUsername; ?> | (<small><?php echo $displayDate; ?></small>)</p>
+              <p class="fw-bold me-auto">User: <?php echo $displayUsername; ?> | (<small><?php echo (new DateTime($displayDate))->format("Y/m/d | H:i:s"); ?></small>)</p>
               <?php if ($user && $comment['username'] == $user['username']): ?>
                 <a href="comments.php?action=delete&commentId=<?php echo $comment['id']; ?>&id=<?php echo $id; ?>" style="max-height: 30px;" class="btn btn-danger btn-sm ms-auto">Delete</a>
               <?php endif; ?>
